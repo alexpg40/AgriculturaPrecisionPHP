@@ -8,9 +8,13 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Agricultura de Precisión - Iniciar Sesion</title>
+        <link rel="stylesheet" href="styles/index.css">
     </head>
     <body>
-        <?php
+        <div class="wrapper">
+            <img src="img/loginImage2.jpg" alt="" class="wrapper__image">
+            <div class="wrapper__login">
+            <?php
         if (isset($_REQUEST['iniciar'])) {
             include 'basedatos/sesionBD.php';
             $registrado = iniciarSesion($_GET['usuario'], $_GET['contrasena']);
@@ -19,13 +23,13 @@ and open the template in the editor.
             } else {
                 ?>
                 <h1>INICIAR SESIÓN</h1>
-                <span>Error! El usuario no esta registrado en la Base de Datos!</span>
+                <span class="warning">Error! El usuario no esta registrado en la Base de Datos!</span>
                 <form action="index.php">
                     <p>
-                        <label for="usuario">Usuario: </label><input type="text" name="usuario">
+                        <label for="usuario">Usuario: </label><input type="text" name="usuario" id="usuario">
                     </p>
                     <p>
-                        <label for="contrasena">Contraseña: </label><input type="text" name="contrasena">
+                        <label for="contrasena">Contraseña: </label><input type="text" name="contrasena" id="contrasena">
                     </p>
                     <p>
                         <input type="submit" name="iniciar" value="Iniciar Sesion">
@@ -54,5 +58,7 @@ and open the template in the editor.
             <?php
         }
         ?>
+            </div>
+        </div>
     </body>
 </html>

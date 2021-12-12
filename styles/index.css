@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+    color: whitesmoke;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.warning{
+    color: red;
+}
+body{
+    height: 97vh;
+    display: flex;
+    align-items: center;
+}
+.wrapper{
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    background-color: #1c0d02;
+    box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 10.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 20.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 20px 80px rgba(0, 0, 0, 0.12)
+  ;
+}
+
+.wrapper__login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+
+.wrapper__image{
+    display: flex;
+    justify-content: center;
+    background-image: url(../img/loginImage.jpg);
+    width: 50%;
+}
+
+h1{
+    margin-bottom: 10%;
+}
