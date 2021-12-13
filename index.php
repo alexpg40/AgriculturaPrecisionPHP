@@ -23,19 +23,19 @@ and open the template in the editor.
             } else {
                 ?>
                 <h1>INICIAR SESIÓN</h1>
-                <span class="warning">Error! El usuario no esta registrado en la Base de Datos!</span>
-                <form action="index.php">
+                <form action="index.php" class="wrapper__login-form">
                     <p>
-                        <label for="usuario">Usuario: </label><input type="text" name="usuario" id="usuario">
+                        <label for="usuario">Usuario: </label><input class="wrapper__login-form-input" type="text" name="usuario" id="usuario">
                     </p>
                     <p>
-                        <label for="contrasena">Contraseña: </label><input type="text" name="contrasena" id="contrasena">
+                        <label for="contrasena">Contraseña: </label><input class="wrapper__login-form-input" type="text" name="contcontrasena" id="contrasena">
                     </p>
-                    <p>
-                        <input type="submit" name="iniciar" value="Iniciar Sesion">
-                        <input type="submit" name="registrar" value="Registrarse">
+                    <p class="wrapper__login-form-buttons">
+                        <input class="wrapper__login-form-button" type="submit" name="iniciar" value="Iniciar Sesion">
+                        <input class="wrapper__login-form-button" type="submit" name="registrar" value="Registrarse">
                     </p>
                 </form>
+                <span class="wrapper__login-error">Error! El usuario no esta registrado en la Base de Datos!</span>
                 <?php
             }
         } else if (isset($_REQUEST['registrar'])) {
@@ -51,8 +51,8 @@ and open the template in the editor.
                     <label for="contrasena">Contraseña: </label><input type="text" name="contrasena">
                 </p>
                 <p>
-                    <input type="submit" name="iniciar" value="Iniciar Sesion">
-                    <input type="submit" name="registrar" value="Registrarse">
+                    <input class="wrapper__login-error-button" type="submit" name="iniciar" value="Iniciar Sesion">
+                    <input class="wrapper__login-error-button" type="submit" name="registrar" value="Registrarse">
                 </p>
             </form>
             <?php
