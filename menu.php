@@ -30,9 +30,13 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
             </ul>
         </navbar>
         <div class="sidebar__welcome">
-        <h2 class="sidebar__welcome-greet">Bienvenido</h2>
             <a href="#" class="sidebar__welcome-link">
             <img src="img/loginProfile.png" class="sidebar__welcome-profile"/></a>
+            <?php
+            include 'sesionBD.php';
+            $nombre = recuperarNombre($_SESSION['idUsuario']);
+            print("<h2 class='sidebar__welcome-greet'>Bienvenido, $nombre</h2>");
+            ?>
         </div>
     </div>
 </body>
