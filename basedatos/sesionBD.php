@@ -2,16 +2,18 @@
 
 function iniciarSesion($usuario, $contraseña) {
     include 'conexionBD.php';
-    $instruccion = "SELECT nombre FROM usuario WHERE nombre = '$usuario' AND contrasena = '$contraseña'";
+    $instruccion = "SELECT idUsuario FROM usuario WHERE nombre = '$usuario' AND contrasena = '$contraseña'";
     $consulta = mysqli_query($conexion, $instruccion)
             or die('No se ha podido iniciar sesion!');
     $nFilas = mysqli_num_rows($consulta);
     if ($nFilas > 0) {
-        return true;
+        $resultado = mysqli_fetch_array($consulta);
+        $idUsuario = $resultado['idUsuario'];
     } else {
-        return false;
+        $idUsuario =  0;
     }
     mysqli_close($conexion);
+    return $idUsuario;
 }
 
 function registrar($usuario, $apellido, $dni, $contraseña) {
@@ -32,6 +34,20 @@ function buscarDNI($dni) {
         return true;
     }
     return false;
+}
+
+function recuperarRoles($idUsuario){
+    include 'conexionBD.php';
+    $instruccion = "SELECT rol.nombre_rol FROM ((rol INNER JOIN usuario_rol ON rol.idRol = usuario_rol.idRol) "
+            . "INNER JOIN usuario ON usuario.idUsuario = usuario_rol.idUsuario) WHERE usuario.idUsuario = $idUsuario;";
+    $query = mysqli_query($conexion, $instruccion);
+    $nFilas = mysqli_num_rows($query);
+    $roles = array();
+    for($i=0;$i<$nFilas;$i++){
+        $resultado = mysqli_fetch_array($query);
+        array_push($roles,$resultado['nombre_rol']);
+    }
+    return $roles;
 }
 
 ?>

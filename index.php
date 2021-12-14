@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<?php
+session_start();
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -18,7 +15,8 @@ and open the template in the editor.
         if (isset($_REQUEST['iniciar'])) {
             include 'basedatos/sesionBD.php';
             $registrado = iniciarSesion($_GET['usuario'], $_GET['contrasena']);
-            if ($registrado) {
+            if ($registrado>0) {
+                $_SESSION['idUsuario'] = $registrado;
                 header("Location: menu.php");
             } else {
                 ?>
