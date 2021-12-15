@@ -60,4 +60,21 @@ function recuperarNombre($idUsuario) {
     return $nombre;
 }
 
+function recuperarTodosUsuarios(){
+    include 'conexionBD.php';
+    $instruccion = "SELECT usuario.idUsuario FROM usuario;";
+    $consulta = mysqli_query($conexion, $instruccion);
+    $nFilas = mysqli_num_rows($consulta);
+    $map = array();
+    for($i = 0;$i < $nFilas; $i++){
+        $resultado = mysqli_fetch_array($consulta);
+        $idUsuario = $resultado['idUsuario'];
+        $nombre = $resultado['nombre'];
+        print($nombre);
+        $roles = recuperarRoles($idUsuario);
+        $map[$nombre] = $roles;
+    }
+    return map;
+}
+
 ?>
