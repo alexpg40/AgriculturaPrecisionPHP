@@ -13,9 +13,11 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
     </head>
     <body>
         <?php
-        if(isset($_REQUEST['logout'])){
-            session_destroy();
-            header('Location: index.php');
+        if(isset($_REQUEST['opcion'])){
+            if($_REQUEST['opcion'] == 'logout'){
+                session_destroy();
+                header('Location: index.php');
+            }
         }
         ?>
         <div class="sidebar">
@@ -26,7 +28,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         if (in_array('Agricultor', $roles)) {
                             ?>
                             <li class="sidebar__navbar-list-item">
-                                Parcelas<button type="submit" value="parcela" name="parcela"/><img class="sidebar__navbar-list-item-icon" src="img/parcelaIcon.png" alt="icono de parcela"/>
+                                Parcelas<button type="submit" value="parcela" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/parcelaIcon.png" alt="icono de parcela"/>
                             </li>
                             <?php
                         }
@@ -35,7 +37,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         if (in_array('Piloto', $roles)) {
                             ?>
                             <li class="sidebar__navbar-list-item">
-                                Trabajos<button type="submit" value="trabajo" name="trabajo"/><img class="sidebar__navbar-list-item-icon" src="img/trabajosIcon.png" alt="icono de trabajo"/>    
+                                Trabajos<button type="submit" value="trabajo" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/trabajosIcon.png" alt="icono de trabajo"/>    
                             </li>
                             <?php
                         }
@@ -44,7 +46,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         if (in_array('Piloto', $roles)) {
                             ?>
                             <li class="sidebar__navbar-list-item">
-                                Drones<button type="submit" value="drones" name="dron"/><img class="sidebar__navbar-list-item-icon" src="img/dronIcon.png" alt="icono de dron"/>
+                                Drones<button type="submit" value="drones" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/dronIcon.png" alt="icono de dron"/>
                             </li>
                             <?php
                         }
@@ -53,13 +55,13 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         if (in_array('Administrador', $roles)) {
                             ?>
                             <li class="sidebar__navbar-list-item">
-                                Administrar Roles<button type="submit" value="roles" name="roles"/><img class="sidebar__navbar-list-item-icon" src="img/dronIcon.png" alt="icono de roles"/>
+                                Administrar Roles<button type="submit" value="roles" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/dronIcon.png" alt="icono de roles"/>
                             </li>
                             <?php
                         }
                         ?>
                         <li class="sidebar__navbar-list-item">
-                            Cerrar Sesion<button type="submit" value="logout" name="logout"/><img class="sidebar__navbar-list-item-icon" src="img/logoutIcon.png" alt="icono de cerrar sesion"/>
+                            Cerrar Sesion<button type="submit" value="logout" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/logoutIcon.png" alt="icono de cerrar sesion"/>
                         </li>
                     </form>
                 </ul>
