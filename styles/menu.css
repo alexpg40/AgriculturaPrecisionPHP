@@ -21,9 +21,9 @@
 
 .sidebar{
     background-color: #1c0d02;
-    height: 100vh;
     width: 200px;
     display: flex;
+    height: 100vh;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
