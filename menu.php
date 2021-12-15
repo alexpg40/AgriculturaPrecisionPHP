@@ -55,7 +55,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         if (in_array('Administrador', $roles)) {
                             ?>
                             <li class="sidebar__navbar-list-item">
-                                Administrar Roles<button type="submit" value="roles" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/dronIcon.png" alt="icono de roles"/>
+                                Administrar Roles<button type="submit" value="roles" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/adminIcon.png" alt="icono de roles"/>
                             </li>
                             <?php
                         }
@@ -70,7 +70,6 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                 <a href="#" class="sidebar__welcome-link">
                     <img src="img/loginProfile.png" class="sidebar__welcome-profile"/></a>
                     <?php
-                    include 'sesionBD.php';
                     $nombre = recuperarNombre($_SESSION['idUsuario']);
                     print("<h2 class='sidebar__welcome-greet'>Bienvenido, $nombre</h2>");
                     ?>
