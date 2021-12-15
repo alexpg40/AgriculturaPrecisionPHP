@@ -75,5 +75,20 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                     ?>
             </div>
         </div>
+        <div class="wrapper">
+            <?php
+            if(!isset($_REQUEST['opcion'])){
+                if(in_array('Administrador', $roles)){
+                    ?>
+            <div class="wrapper__option">
+                
+            </div>
+                    <?php
+                    $array = recuperarTodosUsuarios();
+                    var_dump($array);
+                }
+            }
+            ?>
+        </div>
     </body>
 </html>
