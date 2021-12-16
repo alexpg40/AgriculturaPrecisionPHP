@@ -79,4 +79,18 @@ function recuperarTodosUsuarios(){
     return $map;
 }
 
+function recuperarUsuario($idUsuario){
+    include 'conexionBD.php';
+    $instruccion = "SELECT * FROM usuario where idUsuario = '$idUsuario'";
+    $consulta = mysqli_query($conexion, $instruccion);
+    $resultado = mysqli_fetch_array($consulta);
+    $idUsuario = $resultado['idUsuario'];
+    $nombre = $resultado['nombre'];
+    $apellido = $resultado['apellido'];
+    $dni = $resultado['dni'];
+    $roles = recuperarRoles($idUsuario);
+    $usuario = array($idUsuario,$nombre,$apellido,$dni,$roles);
+    return $usuario;
+}
+
 ?>
