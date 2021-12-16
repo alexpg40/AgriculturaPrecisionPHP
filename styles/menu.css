@@ -90,19 +90,19 @@ button, input[type="submit"], input[type="reset"] {
     display: flex;
 }
 .wrapper__admin-users{
-    height:40vh;
+    height:70vh;
     display: flex;
     flex-direction: column;
     overflow:auto;
     overflow-x: hidden;
 }
 .wrapper__admin-users-item{
-    height: 7vh;
+    height: 8vh;
     padding: 1vh;
     width: 100%;
     display: grid;
     text-align: center;
-    grid-template-areas: "icon id nombre apellido dni";
+    grid-template-areas: "icon id nombre apellido dni roles select";
     box-shadow:
     0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 4.7px 5.3px rgba(0, 0, 0, 0.048),
@@ -134,12 +134,72 @@ button, input[type="submit"], input[type="reset"] {
     grid-area: dni;
 }
 
+.wrapper__admin-users-item-select{
+    grid-area: select;
+}
+
+.wrapper__admin-users-item-roles{
+    grid-area: roles;
+}
+
 .wrapper__admin-users-item-icon img{
-    width: 50px;
+    width: 70px;
 }
 
 .wrapper__admin-users-item div{
-    width: 50px;
+    width: 140px;
     display: flex;
     align-items: center;
+}
+.wrapper__admin-header{
+    display: grid;
+    grid-template-areas: "iconTag idTag nombreTag apellidoTag dniTag rolesTag selectTag";
+    background-color: #1c0d02;
+    color: white;
+    padding:2vh;
+    text-align: center;
+    margin: 5px;
+}
+
+.wrapper__admin-header div{
+    width: 140px;
+}
+
+.wrapper__admin-header-id{
+    grid-area: idTag;
+}
+
+.wrapper__admin-header-icon{
+    grid-area: iconTag;
+}
+
+.wrapper__admin-header-nombre{
+    grid-area: nombreTag;
+}
+
+.wrapper__admin-header-apellido{
+    grid-area:apellidoTag;
+}
+
+.wrapper__admin-header-dni{
+    grid-area:dniTag;
+}
+
+.wrapper__admin-header-roles{
+    grid-area:rolesTag;
+}
+
+.wrapper__admin-header-select{
+    grid-area:selectTag;
+}
+.wrapper__admin-users-item-select button{
+    background-color: #1c0d02;
+    color: white;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 25px;
+    padding:15px;
+}
+.wrapper__title{
+    padding: 10px;
 }
