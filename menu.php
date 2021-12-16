@@ -83,22 +83,29 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         $usuariosRoles = recuperarTodosUsuarios();
                         ?>
                         <div class="wrapper__admin">
-                            <h2>Usuarios</h2>
+                            <form action="editarUsuario.php">
+                            <h1 class="wrapper__title" >Mostrar usuarios</h1>
                             <div class="wrapper__admin-header">
-                                <div class="wrapper__admin-header-tag">
+                                <div class="wrapper__admin-header-icon">
                                     Icono de perfil
                                 </div>
-                                <div class="wrapper__admin-header-tag">
+                                <div class="wrapper__admin-header-id">
                                     IdUsuario
                                 </div>
-                                <div class="wrapper__admin-header-tag">
+                                <div class="wrapper__admin-header-nombre">
                                     Nombre
                                 </div>
-                                <div class="wrapper__admin-header-tag">
+                                <div class="wrapper__admin-header-apellido">
                                    Apellido 
                                 </div>
-                                <div class="wrapper__admin-header-tag">
+                                <div class="wrapper__admin-header-dni">
                                     DNI   
+                                </div>
+                                <div class="wrapper__admin-header-roles">
+                                    Roles
+                                </div>
+                                <div class="wrapper__admin-header-select">
+                                    Seleccionar
                                 </div>
                             </div>
                             <div class="wrapper__admin-users">
@@ -121,11 +128,35 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                         <div class="wrapper__admin-users-item-dni">
                                             <?=$usuario[3]?>
                                         </div>
+                                        <div class="wrapper__admin-users-item-roles">
+                                            <?php
+                                                $arrayRoles = $usuario[4];
+                                                if(count($arrayRoles)>0){
+                                                    ?>
+                                                <select>
+                                                <?php
+                                                    foreach ($arrayRoles as $rol){
+                                                        ?>
+                                                        <option><?=$rol?></option>
+                                                        <?php
+                                                    } 
+                                                    ?>
+                                                </select>
+                                                <?php
+                                                } else{
+                                                    print "No tiene roles asignados";
+                                                }
+                                            ?>
+                                        </div>
+                                        <div class="wrapper__admin-users-item-select">
+                                            <button type="submit" value="<?=$usuario[0]?>" name="idUsuario">Editar usuario</button>
+                                        </div>
                                     </div>
                                     <?php
                                 }
                                 ?>
                             </div>
+                            </form>
                         </div>
                         <?php
                     }
