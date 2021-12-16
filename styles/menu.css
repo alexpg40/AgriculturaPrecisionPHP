@@ -1,7 +1,6 @@
 *{
     margin: 0;
     padding: 0;
-    color: whitesmoke;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
@@ -21,19 +20,20 @@
 
 .sidebar{
     background-color: #1c0d02;
-    width: 200px;
+    width: 20vh;
     display: flex;
-    height: 100%;
+    color: whitesmoke;
+    height: 100vh;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    position: absolute;
 }
 
 .sidebar__welcome{
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 15px;
 }
 
 .sidebar__welcome-link{
@@ -67,11 +67,79 @@ a{
 }
 
 button, input[type="submit"], input[type="reset"] {
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+.global_wrapper{
+    display: flex;
+}
+
+.wrapper{
+    color: black;
+    padding: 20px;
+    width: 100%;
+}
+
+.wrapper__admin-table-user{
+    display: flex;
+}
+.wrapper__admin-users{
+    height:40vh;
+    display: flex;
+    flex-direction: column;
+    overflow:auto;
+    overflow-x: hidden;
+}
+.wrapper__admin-users-item{
+    height: 7vh;
+    padding: 1vh;
+    width: 100%;
+    display: grid;
+    text-align: center;
+    grid-template-areas: "icon id nombre apellido dni";
+    box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 4.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 5.5px 6px rgba(0, 0, 0, 0.06),
+    0 6.3px 9.9px rgba(0, 0, 0, 0.072),
+    0 9.8px 14.4px rgba(0, 0, 0, 0.086),
+    0 9px 20px rgba(0, 0, 0, 0.12)
+  ;
+  margin: 1vh;
+}
+
+.wrapper__admin-users-item-icon{
+    grid-area: icon;
+}
+
+.wrapper__admin-users-item-idUsuario{
+    grid-area: id;
+}
+
+.wrapper__admin-users-item-nombre{
+    grid-area: nombre;
+}
+
+.wrapper__admin-users-item-apellido{
+    grid-area: apellido;
+}
+
+.wrapper__admin-users-item-dni{
+    grid-area: dni;
+}
+
+.wrapper__admin-users-item-icon img{
+    width: 50px;
+}
+
+.wrapper__admin-users-item div{
+    width: 50px;
+    display: flex;
+    align-items: center;
 }

@@ -12,83 +12,126 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
         <link rel="stylesheet" href="styles/menu.css">
     </head>
     <body>
-        <?php
-        if(isset($_REQUEST['opcion'])){
-            if($_REQUEST['opcion'] == 'logout'){
-                session_destroy();
-                header('Location: index.php');
+        <div class="global_wrapper">
+            <?php
+            if (isset($_REQUEST['opcion'])) {
+                if ($_REQUEST['opcion'] == 'logout') {
+                    session_destroy();
+                    header('Location: index.php');
+                }
             }
-        }
-        ?>
-        <div class="sidebar">
-            <navbar class="sidebar__navbar">
-                <ul class="sidebar__navbar-list">
-                    <form action="menu.php">
-                        <?php
-                        if (in_array('Agricultor', $roles)) {
+            ?>
+            <div class="sidebar">
+                <navbar class="sidebar__navbar">
+                    <ul class="sidebar__navbar-list">
+                        <form action="menu.php">
+                            <?php
+                            if (in_array('Agricultor', $roles)) {
+                                ?>
+                                <li class="sidebar__navbar-list-item">
+                                    Parcelas<button type="submit" value="parcela" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/parcelaIcon.png" alt="icono de parcela"/>
+                                </li>
+                                <?php
+                            }
+                            ?>
+                            <?php
+                            if (in_array('Piloto', $roles)) {
+                                ?>
+                                <li class="sidebar__navbar-list-item">
+                                    Trabajos<button type="submit" value="trabajo" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/trabajosIcon.png" alt="icono de trabajo"/>    
+                                </li>
+                                <?php
+                            }
+                            ?>
+                            <?php
+                            if (in_array('Piloto', $roles)) {
+                                ?>
+                                <li class="sidebar__navbar-list-item">
+                                    Drones<button type="submit" value="drones" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/dronIcon.png" alt="icono de dron"/>
+                                </li>
+                                <?php
+                            }
+                            ?>
+                            <?php
+                            if (in_array('Administrador', $roles)) {
+                                ?>
+                                <li class="sidebar__navbar-list-item">
+                                    Administrar Roles<button type="submit" value="roles" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/adminIcon.png" alt="icono de roles"/>
+                                </li>
+                                <?php
+                            }
                             ?>
                             <li class="sidebar__navbar-list-item">
-                                Parcelas<button type="submit" value="parcela" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/parcelaIcon.png" alt="icono de parcela"/>
+                                Cerrar Sesion<button type="submit" value="logout" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/logoutIcon.png" alt="icono de cerrar sesion"/>
                             </li>
-                            <?php
-                        }
-                        ?>
-                        <?php
-                        if (in_array('Piloto', $roles)) {
-                            ?>
-                            <li class="sidebar__navbar-list-item">
-                                Trabajos<button type="submit" value="trabajo" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/trabajosIcon.png" alt="icono de trabajo"/>    
-                            </li>
-                            <?php
-                        }
-                        ?>
-                        <?php
-                        if (in_array('Piloto', $roles)) {
-                            ?>
-                            <li class="sidebar__navbar-list-item">
-                                Drones<button type="submit" value="drones" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/dronIcon.png" alt="icono de dron"/>
-                            </li>
-                            <?php
-                        }
-                        ?>
-                        <?php
-                        if (in_array('Administrador', $roles)) {
-                            ?>
-                            <li class="sidebar__navbar-list-item">
-                                Administrar Roles<button type="submit" value="roles" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/adminIcon.png" alt="icono de roles"/>
-                            </li>
-                            <?php
-                        }
-                        ?>
-                        <li class="sidebar__navbar-list-item">
-                            Cerrar Sesion<button type="submit" value="logout" name="opcion"/><img class="sidebar__navbar-list-item-icon" src="img/logoutIcon.png" alt="icono de cerrar sesion"/>
-                        </li>
-                    </form>
-                </ul>
-            </navbar>
-            <div class="sidebar__welcome">
-                <a href="#" class="sidebar__welcome-link">
-                    <img src="img/loginProfile.png" class="sidebar__welcome-profile"/></a>
+                        </form>
+                    </ul>
+                </navbar>
+                <div class="sidebar__welcome">
+                    <a href="#" class="sidebar__welcome-link">
+                        <img src="img/loginProfile.png" class="sidebar__welcome-profile"/></a>
                     <?php
                     $nombre = recuperarNombre($_SESSION['idUsuario']);
                     print("<h2 class='sidebar__welcome-greet'>Bienvenido, $nombre</h2>");
                     ?>
+                </div>
             </div>
-        </div>
-        <div class="wrapper">
-            <?php
-            if(!isset($_REQUEST['opcion'])){
-                if(in_array('Administrador', $roles)){
-                    ?>
-            <div class="wrapper__option">
-                
-            </div>
-                    <?php
-                    $array = recuperarTodosUsuarios();
-                    var_dump($array);
+            <div class="wrapper">
+                <?php
+                if (!isset($_REQUEST['opcion'])) {
+                    if (in_array('Administrador', $roles)) {
+                        $usuariosRoles = recuperarTodosUsuarios();
+                        ?>
+                        <div class="wrapper__admin">
+                            <h2>Usuarios</h2>
+                            <div class="wrapper__admin-header">
+                                <div class="wrapper__admin-header-tag">
+                                    Icono de perfil
+                                </div>
+                                <div class="wrapper__admin-header-tag">
+                                    IdUsuario
+                                </div>
+                                <div class="wrapper__admin-header-tag">
+                                    Nombre
+                                </div>
+                                <div class="wrapper__admin-header-tag">
+                                   Apellido 
+                                </div>
+                                <div class="wrapper__admin-header-tag">
+                                    DNI   
+                                </div>
+                            </div>
+                            <div class="wrapper__admin-users">
+                                <?php
+                                foreach ($usuariosRoles as $usuario) {
+                                    ?>
+                                    <div class="wrapper__admin-users-item">
+                                        <div class="wrapper__admin-users-item-icon">
+                                            <img src="img/loginProfile.png">
+                                        </div>
+                                        <div class="wrapper__admin-users-item-idUsuario">
+                                            <?=$usuario[0]?>
+                                        </div>
+                                        <div class="wrapper__admin-users-item-nombre">
+                                            <?=$usuario[1]?>
+                                        </div>
+                                        <div class="wrapper__admin-users-item-apellido">
+                                            <?=$usuario[2]?>
+                                        </div>
+                                        <div class="wrapper__admin-users-item-dni">
+                                            <?=$usuario[3]?>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <?php
+                    }
                 }
-            }
-            ?>
+                ?>
+            </div>
         </div>
     </body>
 </html>
