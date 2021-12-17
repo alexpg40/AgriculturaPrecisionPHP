@@ -109,54 +109,10 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                 </div>
                             </div>
                             <div class="wrapper__admin-users">
-                                <?php
-                                foreach ($usuariosRoles as $usuario) {
-                                    ?>
-                                    <div class="wrapper__admin-users-item">
-                                        <div class="wrapper__admin-users-item-icon">
-                                            <img src="img/loginProfile.png">
-                                        </div>
-                                        <div class="wrapper__admin-users-item-idUsuario">
-                                            <?=$usuario[0]?>
-                                        </div>
-                                        <div class="wrapper__admin-users-item-nombre">
-                                            <?=$usuario[1]?>
-                                        </div>
-                                        <div class="wrapper__admin-users-item-apellido">
-                                            <?=$usuario[2]?>
-                                        </div>
-                                        <div class="wrapper__admin-users-item-dni">
-                                            <?=$usuario[3]?>
-                                        </div>
-                                        <div class="wrapper__admin-users-item-roles">
-                                            <?php
-                                                $arrayRoles = $usuario[4];
-                                                if(count($arrayRoles)>0){
-                                                    ?>
-                                                <select>
-                                                <?php
-                                                    foreach ($arrayRoles as $rol){
-                                                        ?>
-                                                        <option><?=$rol?></option>
-                                                        <?php
-                                                    } 
-                                                    ?>
-                                                </select>
-                                                <?php
-                                                } else{
-                                                    print "No tiene roles asignados";
-                                                }
-                                            ?>
-                                        </div>
-                                        <div class="wrapper__admin-users-item-select">
-                                            <button type="submit" value="<?=$usuario[0]?>" name="idUsuario">Editar usuario</button>
-                                        </div>
-                                    </div>
-                                    <?php
-                                }
-                                ?>
+                                
                             </div>
                             </form>
+                            <script src="javascript/adminUser.js"></script>
                         </div>
                         <?php
                     }
