@@ -50,7 +50,8 @@ const crearUsuarios = (todosUsuarios) => {
         let divSelect = document.createElement('div');
         let boton = document.createElement('button');
         boton.innerText = 'Editar';
-        boton.id = usuarioID;
+        boton.name = 'idUsuario';
+        boton.value = usuarioID;
         divSelect.className = "wrapper__admin-users-item-select";
         divSelect.appendChild(boton);
         divUsuario.appendChild(divSelect);
