@@ -116,7 +116,46 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         </div>
                         <?php
                     }
+                } else if($_REQUEST['opcion'] == 'roles') {
+                    if(in_array('Administrador', $roles)){
+                    ?>
+                        <div class="wrapper__admin">
+                            <form action="editarUsuario.php">
+                            <h1 class="wrapper__title" >Mostrar usuarios</h1>
+                            <div class="wrapper__admin-header">
+                                <div class="wrapper__admin-header-icon">
+                                    Icono de perfil
+                                </div>
+                                <div class="wrapper__admin-header-id">
+                                    IdUsuario
+                                </div>
+                                <div class="wrapper__admin-header-nombre">
+                                    Nombre
+                                </div>
+                                <div class="wrapper__admin-header-apellido">
+                                   Apellido 
+                                </div>
+                                <div class="wrapper__admin-header-dni">
+                                    DNI   
+                                </div>
+                                <div class="wrapper__admin-header-roles">
+                                    Roles
+                                </div>
+                                <div class="wrapper__admin-header-select">
+                                    Seleccionar
+                                </div>
+                            </div>
+                            <div class="wrapper__admin-users">
+                                
+                            </div>
+                            </form>
+                            <script src="javascript/adminUser.js"></script>
+                        </div>
+                        <?php
+                } else{
+                    print('Usted no tiene permisos para entrar aqui!');
                 }
+            }
                 ?>
             </div>
         </div>
