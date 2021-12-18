@@ -84,6 +84,7 @@ button, input[type="submit"], input[type="reset"] {
     color: black;
     padding: 20px;
     width: 100%;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
 }
@@ -152,4 +153,29 @@ button, input[type="submit"], input[type="reset"] {
 
 .wrapper__usuario-ban input[value="Expulsar temporalmente"]{
     background-color: #008F39;
+}
+
+.wrapper__roles{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 30vh;
+}
+
+.wrapper__roles-form{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.wrapper__roles-form input[type="submit"]{
+    background-color: #1c0d02;
+    color: white;
+    padding: 5px;
+}
+
+.wrapper__roles-form input{
+    text-align: center;
+    margin: 5px;
 }
