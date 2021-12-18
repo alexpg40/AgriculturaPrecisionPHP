@@ -6,15 +6,16 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agricultura de Precisión - Editar Usuario</title>
-    <link rel="stylesheet" href="styles/editarUsuario.css">
-</head>
-<body>
-<?php
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Agricultura de Precisión - Editar Usuario</title>
+        <link rel="stylesheet" href="styles/editarUsuario.css">
+    </head>
+    <body>
+        <div class="global_wrapper">
+            <?php
             if (isset($_REQUEST['opcion'])) {
                 if ($_REQUEST['opcion'] == 'logout') {
                     session_destroy();
@@ -77,5 +78,51 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                     ?>
                 </div>
             </div>
-</body>
+            <div class="wrapper">
+                <h1 class="wrapper__title">Editar Usuario</h1>
+                <div class="wrapper__usuario">
+                    <?php
+                    $usuario = recuperarUsuario($_REQUEST['idUsuario']);
+                    ?>
+                    <div class="wrapper__usuario-editar">
+                        <div class="wrapper__usuario-icon">
+                            <img src="img/loginProfile.png">
+                        </div>
+                        <form class="wrapper__usuario-form">
+                            <p>
+                                <label for="nombre">Nombre</label>
+                                <input type="text" name=nombre value="<?= $usuario[1] ?>">
+                            <lable for="editarNombre">Editar Nombre</lable>
+                            <input type="checkbox" name="editarNombre">
+                            </p>
+                            <p>
+                                <label for="apellido">Apellido: </label>
+                                <input type="text" name=apellido value="<?= $usuario[2] ?>">
+                            <lable for="editarApellido">Editar Apellido</lable>
+                            <input type="checkbox" name="editarApellido">
+                            </p>
+                            <p>
+                                <label for="email">Email: </label>
+                                <input type="text" name=email value="<?= $usuario[2] ?>">
+                            <lable for="editarEmail">Editar Email</lable>
+                            <input type="checkbox" name="editarEmail">
+                            </p>
+                            <p>
+                                <label for="dni">DNI: </label>
+                                <input type="text" name=dni value="<?= $usuario[3] ?>">
+                            <lable for="editarDNI">Editar DNI</lable>
+                            <input type="checkbox" name="editarDNI">
+                            </p>
+                            <input class="wrapper__usuario-form-submit" type="submit" name="editar" value="Editar Usuario">
+                        </form>
+                    </div>
+                    <form class="wrapper__usuario-ban">
+                        <input type="submit" name="bannear" value="Eliminar de la Base de datos">
+                        <input type="submit" name="bannear" value="Expulsar temporalmente">
+                        <input type="submit" name="bannear" value="Contactar">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
