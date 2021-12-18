@@ -20,13 +20,36 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                 if ($_REQUEST['opcion'] == 'logout') {
                     session_destroy();
                     header('Location: index.php');
+                } else if ($_REQUEST['opcion'] == 'roles'){
+                    header('Location: menu.php');
+                }
+            } else{
+                if(isset($_REQUEST['editar'])){
+
+                } else if (isset($_REQUEST['bannear'])){
+                    if($_REQUEST['bannear'] == 'Eliminar de la Base de datos'){
+                        borrarUsuario($_SESSION['editarUsuario']);
+                        header('Location: menu.php');
+                    } else if ($_REQUEST['bannear'] == 'Contactar'){
+
+                    } else if ($_REQUEST['bannear'] == 'Expulsar temporalmente'){
+
+                    } 
+                } else if (isset($_REQUEST['submit_rol'])){
+                    if($_REQUEST['submit_rol'] == 'Dar rol'){
+                        darRol($_SESSION['editarUsuario'], $_REQUEST['rol']);
+                        header('Location: menu.php');
+                    } else if ($_REQUEST['submit_rol'] == 'Quitar rol'){
+                        quitarRol($_SESSION['editarUsuario'], $_REQUEST['rol']);
+                        header('Location: menu.php');
+                    }
                 }
             }
             ?>
             <div class="sidebar">
                 <navbar class="sidebar__navbar">
                     <ul class="sidebar__navbar-list">
-                        <form action="menu.php">
+                        <form action="editarUsuario.php">
                             <?php
                             if (in_array('Agricultor', $roles)) {
                                 ?>
@@ -82,6 +105,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                 <h1 class="wrapper__title">Editar Usuario</h1>
                 <div class="wrapper__usuario">
                     <?php
+                    $_SESSION['editarUsuario'] = $_REQUEST['idUsuario'];
                     $usuario = recuperarUsuario($_REQUEST['idUsuario']);
                     ?>
                     <div class="wrapper__usuario-editar">
@@ -121,6 +145,40 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         <input type="submit" name="bannear" value="Expulsar temporalmente">
                         <input type="submit" name="bannear" value="Contactar">
                     </form>
+                </div>
+                <div class="wrapper__roles">
+                    <div class="wrapper__roles-dar">
+                        <h2 class="wrapper__roles-dar-title">Dar roles al usuario</h2>
+                        <form class="wrapper__roles-form">
+                        <select name="rol">
+                            <?php
+                            $rolesFaltan = recuperarRolesFalta($_REQUEST['idUsuario']);
+                            foreach ($rolesFaltan as $rol){
+                                ?>
+                                    <option><?=$rol?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                        <input type="submit" name="submit_rol" value="Dar rol">
+                        </form>
+                    </div>
+                    <div class="wrapper__roles-quitar">
+                        <h2 class="wrapper__roles-dar-title">Quitar roles al usuario</h2>
+                        <form class="wrapper__roles-form">
+                        <select name="rol">
+                            <?php
+                            $rolesFaltan = recuperarRoles($_REQUEST['idUsuario']);
+                            foreach ($rolesFaltan as $rol){
+                                ?>
+                                    <option><?=$rol?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                        <input type="submit" name="submit_rol" value="Quitar rol">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
