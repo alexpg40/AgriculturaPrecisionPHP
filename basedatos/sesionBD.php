@@ -93,4 +93,38 @@ function recuperarUsuario($idUsuario){
     return $usuario;
 }
 
+function recuperarRolesFalta($idUsuario){
+    include 'conexionBD.php';
+    $instruccion = "SELECT rol.nombre_rol FROM rol WHERE rol.idRol NOT IN (SELECT usuario_rol.idRol FROM usuario_rol WHERE idUsuario = $idUsuario); ";
+    $query = mysqli_query($conexion, $instruccion);
+    $nFilas = mysqli_num_rows($query);
+    $roles = array();
+    for ($i = 0; $i < $nFilas; $i++) {
+        $resultado = mysqli_fetch_array($query);
+        array_push($roles, $resultado['nombre_rol']);
+    }
+    return $roles;
+}
+
+function borrarUsuario($idUsuario) {
+    include 'conexionBD.php';
+    $instruccion = "DELETE FROM usuario WHERE idUsuario = '$idUsuario'";
+    $query = mysqli_query($conexion, $instruccion);
+    mysqli_close($conexion);
+}
+
+function darRol($idUsuario, $nombreRol){
+    include 'conexionBD.php';
+    $instruccion = "INSERT INTO usuario_rol VALUES ($idUsuario, (SELECT rol.idRol FROM rol WHERE rol.nombre_rol = '$nombreRol'))";
+    $query = mysqli_query($conexion, $instruccion);
+    mysqli_close($conexion);
+}
+
+function quitarRol($idUsuario, $nombreRol){
+    include 'conexionBD.php';
+    $instruccion = "DELETE FROM usuario_rol WHERE usuario_rol.idUsuario = $idUsuario AND usuario_rol.idRol = (SELECT rol.idRol FROM rol WHERE rol.nombre_rol = '$nombreRol')";
+    $query = mysqli_query($conexion, $instruccion);
+    mysqli_close($conexion);
+}
+
 ?>
