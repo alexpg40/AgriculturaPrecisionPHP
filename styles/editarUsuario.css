@@ -75,3 +75,81 @@ button, input[type="submit"], input[type="reset"] {
     cursor: pointer;
     outline: inherit;
 }
+
+.global_wrapper{
+    display: flex;
+}
+
+.wrapper{
+    color: black;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.wrapper__usuario-icon{
+    display: flex;
+    flex-direction: column;
+    width: 30vh;
+}
+.wrapper__usuario{
+    display: flex;
+    align-items: center;
+    height: 40vh;
+    justify-content: space-around;
+}
+
+.wrapper__usuario-form{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 20vh;
+    font-size: 20px;
+}
+
+.wrapper__usuario-form input[type="submit"]{
+    width: 100%;
+    color: white;
+    background-color:#1c0d02;
+    padding: 5px;
+    font-size: 20px;
+}
+.wrapper__usuario-form input{
+    width: auto;
+}
+.wrapper__usuario-editar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    justify-content: space-around;
+}
+
+.wrapper__usuario-ban{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.wrapper__usuario-ban input{
+    width: 40%;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    display: flex;
+    margin: 5px;
+    align-items: center;
+}
+
+.wrapper__usuario-ban input[value="Eliminar de la Base de datos"]{
+    background-color: #CB3234;
+}
+.wrapper__usuario-ban input[value="Contactar"]{
+    background-color: #000fff;
+}
+
+.wrapper__usuario-ban input[value="Expulsar temporalmente"]{
+    background-color: #008F39;
+}
