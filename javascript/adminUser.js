@@ -71,7 +71,9 @@ function recuperarUsuarios(){
     })
     .then((todosUsuarios) => {
         console.log(todosUsuarios);
+        let a = [];
         todosUsuarios = todosUsuarios.usuarios[0];
+        todosUsuarios = todosUsuarios.filter((usuario) => !usuario[4].includes('Administrador'))
         crearUsuarios(todosUsuarios);
     })
     .catch((err) => {console.error(err);});
