@@ -41,7 +41,6 @@
     }
     
     function validarDNI($dni){
-        include '../basedatos/sesionBD.php';
         if(strlen($dni) != 9){
             return false;
         }
@@ -52,6 +51,16 @@
             return false;
         }
         
+        return true;
+    }
+
+    function validarEmail($email){
+        if(strlen($email) > 30){
+            return false;
+        }
+        if(!preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $email)){
+            return false;
+        }
         return true;
     }
     
