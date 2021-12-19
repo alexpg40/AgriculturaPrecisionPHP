@@ -9,12 +9,13 @@
     color: red;
 }
 body{
-    height: 97vh;
+    height: 100vh;
     display: flex;
     align-items: center;
 }
 .wrapper{
     width: 75%;
+    height: 60vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -38,10 +39,17 @@ body{
     width: 50%;
 }
 
+.wrapper__login-form-buttons{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
 .wrapper__image{
     display: flex;
     justify-content: center;
     background-image: url(../img/loginImage.jpg);
+    height: 60vh;
     width: 50%;
 }
 .wrapper__login-form-button{
@@ -54,8 +62,8 @@ body{
 
 .wrapper__login-form{
     font-size:20px;
-    margin: 20px;
-    padding: 30px;
+    margin: 10px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
 }
@@ -66,7 +74,7 @@ body{
     font-size: 20px;
 }
 
-.wrapper__login-form-buttons{
+.wrapper__registro-form-buttons{
     margin-top: 30px;
     display: flex;
     justify-content: space-around;
