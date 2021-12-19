@@ -25,7 +25,8 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                 }
             } else{
                 if(isset($_REQUEST['editar'])){
-
+                    actualizarUsuario($_SESSION['editarUsuario'], $_REQUEST['nombre'], $_REQUEST['apellido'], $_REQUEST['email'], $_REQUEST['dni']);
+                    header('Location: menu.php');
                 } else if (isset($_REQUEST['bannear'])){
                     if($_REQUEST['bannear'] == 'Eliminar de la Base de datos'){
                         borrarUsuario($_SESSION['editarUsuario']);
@@ -112,30 +113,22 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         <div class="wrapper__usuario-icon">
                             <img src="img/loginProfile.png">
                         </div>
-                        <form class="wrapper__usuario-form">
+                        <form action="editarUsuario.php" class="wrapper__usuario-form">
                             <p>
                                 <label for="nombre">Nombre</label>
                                 <input type="text" name=nombre value="<?= $usuario[1] ?>">
-                            <lable for="editarNombre">Editar Nombre</lable>
-                            <input type="checkbox" name="editarNombre">
                             </p>
                             <p>
                                 <label for="apellido">Apellido: </label>
                                 <input type="text" name=apellido value="<?= $usuario[2] ?>">
-                            <lable for="editarApellido">Editar Apellido</lable>
-                            <input type="checkbox" name="editarApellido">
                             </p>
                             <p>
                                 <label for="email">Email: </label>
-                                <input type="text" name=email value="<?= $usuario[2] ?>">
-                            <lable for="editarEmail">Editar Email</lable>
-                            <input type="checkbox" name="editarEmail">
+                                <input type="text" name=email value="<?= $usuario[5] ?>">
                             </p>
                             <p>
                                 <label for="dni">DNI: </label>
                                 <input type="text" name=dni value="<?= $usuario[3] ?>">
-                            <lable for="editarDNI">Editar DNI</lable>
-                            <input type="checkbox" name="editarDNI">
                             </p>
                             <input class="wrapper__usuario-form-submit" type="submit" name="editar" value="Editar Usuario">
                         </form>
