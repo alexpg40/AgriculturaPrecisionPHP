@@ -88,8 +88,9 @@ function recuperarUsuario($idUsuario){
     $nombre = $resultado['nombre'];
     $apellido = $resultado['apellido'];
     $dni = $resultado['dni'];
+    $email = $resultado['email'];
     $roles = recuperarRoles($idUsuario);
-    $usuario = array($idUsuario,$nombre,$apellido,$dni,$roles);
+    $usuario = array($idUsuario,$nombre,$apellido,$dni,$roles, $email);
     return $usuario;
 }
 
@@ -125,6 +126,43 @@ function quitarRol($idUsuario, $nombreRol){
     $instruccion = "DELETE FROM usuario_rol WHERE usuario_rol.idUsuario = $idUsuario AND usuario_rol.idRol = (SELECT rol.idRol FROM rol WHERE rol.nombre_rol = '$nombreRol')";
     $query = mysqli_query($conexion, $instruccion);
     mysqli_close($conexion);
+}
+
+function actualizarUsuario($idUsuario, $nombre, $apellido, $email, $dni){
+    include 'conexionBD.php';
+    $instruccion = "UPDATE usuario SET ";
+    $actualizarUsuario = '';
+    if($nombre != ''){
+        if($actualizarUsuario == ''){
+            $actualizarUsuario.=" nombre = '$nombre'";
+        }
+    }
+    if($apellido != ''){
+        if($actualizarUsuario == ''){
+            $actualizarUsuario.=" apellido = '$apellido'";
+        } else{
+            $actualizarUsuario.=", apellido = '$apellido'";
+        }
+    }
+    if($email != ''){
+        if($actualizarUsuario == ''){
+            $actualizarUsuario.=" email = '$email'";
+        } else{
+            $actualizarUsuario.=", email = '$email'";
+        }
+    }
+    if($dni != ''){
+        if($actualizarUsuario == ''){
+            $actualizarUsuario.=" dni = '$dni'";
+        } else{
+            $actualizarUsuario.=", dni = '$dni'";
+        }
+    }
+    if($actualizarUsuario != ''){
+        $instruccion.=$actualizarUsuario.=" WHERE idUsuario = $idUsuario";
+        $query = mysqli_query($conexion, $instruccion);
+    }
+    mysqli_close($conexion);   
 }
 
 ?>
