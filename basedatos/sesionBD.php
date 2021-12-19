@@ -165,4 +165,10 @@ function actualizarUsuario($idUsuario, $nombre, $apellido, $email, $dni){
     mysqli_close($conexion);   
 }
 
+function recuperarParcelas(){
+    include 'conexionBD.php';
+    $instruccion = "SELECT * FROM parcela";
+    
+}
+
 ?>
