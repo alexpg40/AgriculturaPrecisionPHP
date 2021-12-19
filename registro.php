@@ -10,43 +10,56 @@
             include 'basedatos/sesionBD.php';
             include 'scripts/validarRegistro.php';
             if (validarNombre($_GET['nombre']) && validarApellido($_GET['apellido']) && validarDNI($_GET['dni']) && validarContraseña($_GET['contrasena'])) {
-                registrar($_GET['nombre'], $_GET['apellido'], $_GET['dni'], $_GET['contrasena']);
+                registrar($_GET['nombre'], $_GET['apellido'], $_GET['dni'], $_GET['contrasena'], $_GET['email']);
                 if (iniciarSesion($_GET['nombre'], $_GET['contrasena'])) {
                     ?>
+                    <div class="volver">
                     <span>Se ha podido registrar sesión exito!</span>
                     <a href="index.php">Volver a Iniciar Sesion</a>
+                    </div>
                     <?php
                 } else {
                     ?>
-                    <h1>Registrar Sesión</h1>
-                    <span>No se ha podido registrar sesion!</span>
-                    <form>
-                        <p>
-                            <label for="nombre">Nombre: </label>
-                            <input type="text" name="nombre">
-                        </p>
-                        <p>
-                            <label for="apellido">Apellido: </label>
-                            <input type="text" name="apellido">
-                        </p>
-                        <p>
-                            <label for="dni">DNI: </label>
-                            <input type="text" name="dni">
-                        </p>
-                        <p>
-                            <label for="contrasena">Contraseña: </label>
-                            <input type="text" name="contrasena">
-                        </p>
-                        <p>
-                            <input type="submit" value="Registrarse" name="registrar">
-                        </p>
-                    </form>
+                    <div class="wrapper">
+            <img src="img/loginImage2.jpg" alt="" class="wrapper__image">
+            <div class="wrapper__registro">
+            <h1>REGISTRAR SESIÓN</h1>
+            <form action="registro.php" class="wrapper__registro-form">
+                <p>
+                    <label for="nombre">Nombre: </label>
+                    <input type="text" class="wrapper__registro-form-input" name="nombre">
+                </p>
+                <p>
+                    <label for="apellido">Apellido: </label>
+                    <input type="text" class="wrapper__registro-form-input" name="apellido">
+                </p>
+                <p>
+                    <label for="dni">DNI: </label>
+                    <input type="text" class="wrapper__registro-form-input" name="dni">
+                </p>
+                <p>
+                    <label for="email">Email: </label>
+                    <input type="text" class="wrapper__registro-form-input" name="email">
+                </p>
+                <p>
+                    <label for="contrasena">Contraseña: </label>
+                    <input type="text" class="wrapper__registro-form-input" name="contrasena">
+                </p>
+                <p class="wrapper__registro-form-buttons">
+                    <input type="submit" class="wrapper__registro-form-button" value="Registrarse" name="registrar">
+                </p>
+            </form>
+            </div>
+            </div>
                     <?php
                 }
             } else {
                 ?>
-                <h1>Registrar Sesión</h1>
-                <form action="registro.php">
+                <div class="wrapper">
+                    <img src="img/loginImage2.jpg" alt="" class="wrapper__image">
+                    <div class="wrapper__registro">
+                    <h1>REGISTRAR SESIÓN</h1>
+                    <form action="registro.php" class="wrapper__registro-form">
                     <?php
                     if (!validarNombre($_GET['nombre'])) {
                         print('<span class="registro__input--warning">El nombre debe tener una longitud entre 3 y 16 caracteres</span>');
@@ -57,9 +70,9 @@
                         <?php
                             if(validarNombre($_GET['nombre'])){
                                 $nombre = $_GET['nombre'];
-                                print("<input type='text' name='nombre' value='$nombre'>");
+                                print("<input type='text' class='wrapper__registro-form-input' name='nombre' value='$nombre'>");
                             } else{
-                                print("<input type='text' name='nombre'>");
+                                print("<input type='text' class='wrapper__registro-form-input' name='nombre'>");
                             }
                         ?>
                     </p>
@@ -73,15 +86,15 @@
                         <?php
                             if(validarApellido($_GET['apellido'])){
                                 $apellido = $_GET['apellido'];
-                                print("<input type='text' name='apellido' value='$apellido'>");
+                                print("<input type='text' class='wrapper__registro-form-input' name='apellido' value='$apellido'>");
                             } else{
-                                print("<input type='text' name='apellido'>");
+                                print("<input type='text' class='wrapper__registro-form-input' name='apellido'>");
                             }
                         ?>
                     </p>
                     <?php
                     if (!validarDNI($_GET['dni'])) {
-                        print('<span class="registro__input--warning">El DNI debe tener una longitud de 9, 8 digitos y terminar con una letra mayuscula, y no existir en la base de datos</span>');
+                        print('<span class="registro__input--warning">El DNI debe tener 8 digitos y terminar con una letra mayuscula, y no existir en la base de datos</span>');
                     }
                     ?>
                     <p>
@@ -89,9 +102,25 @@
                         <?php
                             if(validarDNI($_GET['dni'])){
                                 $dni = $_GET['dni'];
-                                print("<input type='text' name='dni' value='$dni'>");
+                                print("<input type='text' class='wrapper__registro-form-input' name='dni' value='$dni'>");
                             } else{
-                                print("<input type='text' name='dni'>");
+                                print("<input type='text' class='wrapper__registro-form-input' name='dni'>");
+                            }
+                        ?>
+                    </p>
+                    <?php
+                    if(!validarEmail($_GET['email'])){
+                        print('<span class="registro__input--warning">El formato de correo electrónico no es válido</span>');
+                    }
+                    ?>
+                    <p>
+                        <label for="email">Email: </label>
+                        <?php
+                            if(validarEmail($_GET['email'])){
+                                $email = $_GET['email'];
+                                print("<input type='text' class='wrapper__registro-form-input' name='email' value='$email'");
+                            } else{
+                                print("<input type='text' class='wrapper__registro-form-input' name='email'>");
                             }
                         ?>
                     </p>
@@ -102,38 +131,49 @@
                     ?>
                     <p>
                         <label for="contrasena">Contraseña: </label>
-                        <input type="text" name="contrasena">
+                        <input type="text" class="wrapper__registro-form-input" name="contrasena">
                     </p>
-                    <p>
-                        <input type="submit" value="Registrarse" name="registrar">
+                    <p class="wrapper__registro-form-buttons">
+                        <input type="submit" class="wrapper__registro-form-button" value="Registrarse" name="registrar">
                     </p>
-                </form>  
+                </form>
+                </div>
+                </div>  
                 <?php
             }
         } else {
             ?>
-            <h1>Registrar Sesión</h1>
-            <form action="registro.php">
+            <div class="wrapper">
+            <img src="img/loginImage2.jpg" alt="" class="wrapper__image">
+            <div class="wrapper__registro">
+            <h1>REGISTRAR SESIÓN</h1>
+            <form action="registro.php" class="wrapper__registro-form">
                 <p>
                     <label for="nombre">Nombre: </label>
-                    <input type="text" name="nombre">
+                    <input type="text" class="wrapper__registro-form-input" name="nombre">
                 </p>
                 <p>
                     <label for="apellido">Apellido: </label>
-                    <input type="text" name="apellido">
+                    <input type="text" class="wrapper__registro-form-input" name="apellido">
                 </p>
                 <p>
                     <label for="dni">DNI: </label>
-                    <input type="text" name="dni">
+                    <input type="text" class="wrapper__registro-form-input" name="dni">
+                </p>
+                <p>
+                    <label for="email">Email: </label>
+                    <input type="text" class="wrapper__registro-form-input" name="email">
                 </p>
                 <p>
                     <label for="contrasena">Contraseña: </label>
-                    <input type="text" name="contrasena">
+                    <input type="text" class="wrapper__registro-form-input" name="contrasena">
                 </p>
-                <p>
-                    <input type="submit" value="Registrarse" name="registrar">
+                <p class="wrapper__registro-form-buttons">
+                    <input type="submit" class="wrapper__registro-form-button" value="Registrarse" name="registrar">
                 </p>
             </form>
+            </div>
+            </div>
             <?php
         }
         ?>
