@@ -16,9 +16,9 @@ function iniciarSesion($usuario, $contraseña) {
     return $idUsuario;
 }
 
-function registrar($usuario, $apellido, $dni, $contraseña) {
+function registrar($usuario, $apellido, $dni, $contraseña, $email) {
     include 'conexionBD.php';
-    $instruccion = "INSERT INTO usuario (idUsuario, nombre, apellido, dni, contrasena) VALUES (null, '$usuario', '$apellido', '$dni', '$contraseña')";
+    $instruccion = "INSERT INTO usuario (idUsuario, nombre, apellido, dni, contrasena, email) VALUES (null, '$usuario', '$apellido', '$dni', '$contraseña', '$email')";
     mysqli_query($conexion, $instruccion)
             or die('No se ha podido registrar el usuario!');
     mysqli_close($conexion);
