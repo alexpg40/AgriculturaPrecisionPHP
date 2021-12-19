@@ -115,9 +115,6 @@ button, input[type="submit"], input[type="reset"] {
     padding: 5px;
     font-size: 20px;
 }
-.wrapper__usuario-form input{
-    width: auto;
-}
 .wrapper__usuario-editar{
     display: flex;
     flex-direction: row;
