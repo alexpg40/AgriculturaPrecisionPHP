@@ -165,10 +165,12 @@ function actualizarUsuario($idUsuario, $nombre, $apellido, $email, $dni){
     mysqli_close($conexion);   
 }
 
-function recuperarParcelas(){
+function recuperarParcelas($idUsuario){
     include 'conexionBD.php';
-    $instruccion = "SELECT * FROM parcela";
-    
+    $instruccion = "SELECT * FROM parcela WHERE idUsuario = $idUsuario";
+    $query = mysqli_query($conexion, $instruccion);
+    $pacelas = array();
+    $nFilas = mysqli_num_rows($query);
 }
 
 ?>
