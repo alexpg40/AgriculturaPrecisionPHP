@@ -5,7 +5,7 @@
         if(strlen($nombre)<3){
             return false;
         }
-        if(strlen($contrasena)>16){
+        if(strlen($nombre)>16){
             return false;
         }
         return true;
@@ -15,7 +15,7 @@
         if(strlen($apellido)<3){
             return false;
         }
-        if(strlen($contrasena)>16){
+        if(strlen($apellido)>16){
             return false;
         }
         return true;
@@ -42,9 +42,6 @@
     
     function validarDNI($dni){
         if(strlen($dni) != 9){
-            return false;
-        }
-        if (substr("TRWAGMYFPDXBNJZSQVHLCKE", $numeros%23, 1) == $letra && strlen($letra) == 1 && strlen ($numeros) == 8 ){
             return false;
         }
         if(buscarDNI($dni)){
