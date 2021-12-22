@@ -115,6 +115,15 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                             <script src="javascript/adminUser.js"></script>
                         </div>
                         <?php
+                    } else if(in_array('Agricultor', $roles)){
+                        ?>
+                        <div class="wrapper__parcelas">
+                            <h1 class="wrapper__title">Tus parcelas</h1>
+                            <div class="wrapper__parcelas-panel">
+                                
+                            </div>
+                        </div>
+                        <?php
                     }
                 } else if($_REQUEST['opcion'] == 'roles') {
                     if(in_array('Administrador', $roles)){
