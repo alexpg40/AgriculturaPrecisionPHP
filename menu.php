@@ -164,6 +164,34 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                 } else{
                     print('Usted no tiene permisos para entrar aqui!');
                 }
+            } else if($_REQUEST['opcion'] == 'parcela'){
+                ?>
+                <div class="wrapper__parcelas">
+                    <h1 class="wrapper__title">Tus parcelas</h1>
+                    <div class="wrapper__parcelas-panel">
+                        <div class="parcela__panel__header">
+                            <div class="parcela__header__detalles">
+                                Detalles
+                            </div>
+                            <div class="parcela__header__id">
+                                Id
+                            </div>
+                            <div class="parcela__header__area">
+                                Area
+                            </div>
+                            <div class="parcela__header__municipio">
+                                Municipio
+                            </div>
+                            <div class="parcela__header__comunidad">
+                                Comunidad
+                            </div>
+                        </div>
+                        <div class="parcela__items">
+                            
+                        </div>
+                    </div>
+                </div>
+                <?php
             }
                 ?>
             </div>
