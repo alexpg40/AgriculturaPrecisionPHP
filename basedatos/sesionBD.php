@@ -167,10 +167,39 @@ function actualizarUsuario($idUsuario, $nombre, $apellido, $email, $dni){
 
 function recuperarParcelas($idUsuario){
     include 'conexionBD.php';
-    $instruccion = "SELECT * FROM parcela WHERE idUsuario = $idUsuario";
+    $instruccion = "SELECT * FROM parcela WHERE idAgricultor = '$idUsuario'";
     $query = mysqli_query($conexion, $instruccion);
-    $pacelas = array();
+    $parcelas = array();
     $nFilas = mysqli_num_rows($query);
+    for ($i=0; $i < $nFilas ; $i++) { 
+        $resultado = mysqli_fetch_array($query);
+        $idParcela = $resultado['idParcela'];
+        $area = $resultado['area'];
+        $municipio = $resultado['municipio'];
+        $provincia = $resultado['comunidad'];
+        $puntos = recuperarPuntosParcela($idParcela);
+        $parcela = array($idParcela, $area, $municipio, $provincia, $puntos);
+        array_push($parcelas, $parcela);
+    }
+    mysqli_close($conexion);
+    return $parcelas;
+}
+
+function recuperarPuntosParcela($idParcela){
+    include 'conexionBD.php';
+    $instruccion = "SELECT * FROM Punto WHERE idParcela = '$idParcela'";
+    $query = mysqli_query($conexion, $instruccion);
+    $puntos = array();
+    $nFilas = mysqli_num_rows($query);
+    for ($i=0; $i <$nFilas; $i++) { 
+        $resultado = mysqli_fetch_array($query);
+        $Long = $resultado['Lon'];
+        $Lat = $resultado['Lat'];
+        $punto = array($Long, $Lat);
+        array_push($puntos, $punto);
+    }
+    mysqli_close($conexion);
+    return $puntos;
 }
 
 ?>
