@@ -169,25 +169,23 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                 <div class="wrapper__parcelas">
                     <h1 class="wrapper__title">Tus parcelas</h1>
                     <div class="wrapper__parcelas-panel">
-                        <div class="parcela__panel__header">
-                            <div class="parcela__header__detalles">
-                                Detalles
+                        <div class="parcela__item">
+                            <div class="parcela__buttons">
+                                <button id="crear_parcela" value="crear_parcela">Crear Parcela</button>
+                                <button id="programar_trabajo" value="programar_trabajo">Programar Trabajo</button>
+                                <button id="eliminar_parcela" value="eliminar_parcela">Eliminar Parcela</button>
                             </div>
-                            <div class="parcela__header__id">
-                                Id
+                            <div class="parcela__options">
+                                <div class="parcela__options__filter">
+
+                                </div>
+                                <div class="parcela__options__data">
+                                    
+                                </div>
                             </div>
-                            <div class="parcela__header__area">
-                                Area
+                            <div class="map">
+
                             </div>
-                            <div class="parcela__header__municipio">
-                                Municipio
-                            </div>
-                            <div class="parcela__header__comunidad">
-                                Comunidad
-                            </div>
-                        </div>
-                        <div class="parcela__items">
-                            
                         </div>
                     </div>
                 </div>
