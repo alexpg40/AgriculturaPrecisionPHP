@@ -203,12 +203,65 @@ button, input[type="submit"], input[type="reset"] {
     padding: 10px;
 }
 
-.parcela__panel__header{
+.parcela__table__header{
     background-color: #1c0d02;
     color: white;
     display:grid;
     text-align: center;
-    padding: 2vh;
+    padding: 1vh;
     grid-template-columns: repeat(5, 1fr);
-    margin: 5px;
+    margin: 1vh;
+}
+
+.wrapper__parcelas{
+    height: 80vh;
+}
+
+.wrapper__buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.parcelas_table{
+    height: 20vh;
+}
+.parcela__table__item{
+    display: grid;
+    padding: 1vh;
+    height: 2vh;
+    text-align: center;
+    grid-template-columns: repeat(5, 1fr);
+    box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 4.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 5.5px 6px rgba(0, 0, 0, 0.06),
+    0 6.3px 9.9px rgba(0, 0, 0, 0.072),
+    0 9.8px 14.4px rgba(0, 0, 0, 0.086),
+    0 9px 20px rgba(0, 0, 0, 0.12)
+  ;
+  margin: 1vh;
+}
+
+.parcela__item{
+    height: 50vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.wrapper__buttons{
+    display: flex;
+    justify-content: space-around;
+}
+.wrapper__buttons button{
+    padding: 1vh;
+    background-color: #1c0d02;
+    color: white;
+}
+
+#map{
+    width: 60%;
+    height: 50vh;
+}
+.parcela__data{
+    width: 40%;
 }

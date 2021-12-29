@@ -1,7 +1,7 @@
 <?php
 include '../basedatos/sesionBD.php';
 
-$usuarios['parcelas'] = recuperarParcelas($_GET['idUsuario']);
+$usuarios['parcelas'] = recuperarParcela($_GET['idParcela']);
 
 echo json_encode($usuarios);
 ?>

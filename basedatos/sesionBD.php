@@ -176,7 +176,7 @@ function recuperarParcelas($idUsuario){
         $idParcela = $resultado['idParcela'];
         $area = $resultado['area'];
         $municipio = $resultado['municipio'];
-        $provincia = $resultado['comunidad'];
+        $provincia = $resultado['provincia'];
         $puntos = recuperarPuntosParcela($idParcela);
         $parcela = array($idParcela, $area, $municipio, $provincia, $puntos);
         array_push($parcelas, $parcela);
@@ -200,6 +200,26 @@ function recuperarPuntosParcela($idParcela){
     }
     mysqli_close($conexion);
     return $puntos;
+}
+
+function recuperarParcela($idParcela){
+    include 'conexionBD.php';
+    $instruccion = "SELECT * FROM parcela WHERE idParcela = '$idParcela'";
+    $query = mysqli_query($conexion, $instruccion);
+    $parcelas = array();
+    $nFilas = mysqli_num_rows($query);
+    for ($i=0; $i < $nFilas ; $i++) { 
+        $resultado = mysqli_fetch_array($query);
+        $idParcela = $resultado['idParcela'];
+        $area = $resultado['area'];
+        $municipio = $resultado['municipio'];
+        $provincia = $resultado['provincia'];
+        $puntos = recuperarPuntosParcela($idParcela);
+        $parcela = array($idParcela, $area, $municipio, $provincia, $puntos);
+        array_push($parcelas, $parcela);
+    }
+    mysqli_close($conexion);
+    return $parcelas;
 }
 
 ?>
