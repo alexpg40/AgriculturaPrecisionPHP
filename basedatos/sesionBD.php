@@ -250,15 +250,18 @@ function recuperarTrabajos($idParcela){
         $nombre = $resultado['nombre'];
         $apellido = $resultado['apellido'];
         $fechaFinal = $resultado['fechaFinalizacion'];
+        if($fechaFinal == '0000-00-00'){
+            $fechaFinal = 'Sin terminar';
+        }
         array_push($trabajos, array($tipoTarea, $nombre." ".$apellido, $fechaFinal));
     }
     mysqli_close($conexion);
     return $trabajos;
 }
 
-function insertarTrabajo($tipoTarea, $idPiloto, $idAgricultor){
+function insertarTrabajo($tipoTarea, $idPiloto, $idAgricultor, $idParcela){
     include 'conexionBD.php';
-    $instruccion = "INSERT INTO trabajo (tipoTarea, idPiloto, idAgricultor) VALUES ('$tipoTarea', '$idPiloto', '$idAgricultor')";
+    $instruccion = "INSERT INTO `trabajo` (`tipoTarea`, `idParcela`, `idPiloto`, `idAgricultor`) VALUES ('$tipoTarea', '$idParcela', '$idPiloto', '$idAgricultor')";
     mysqli_query($conexion, $instruccion);
     mysqli_close($conexion);
 }
