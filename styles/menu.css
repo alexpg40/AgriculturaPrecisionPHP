@@ -285,3 +285,35 @@ select{
     color: white;
     padding: 1vh;
 }
+.parcela__trabajos__table__header{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: #1c0d02;
+    color: white;
+    margin-top: 1vh;
+    padding: 1vh;
+    text-align: center;
+    
+}
+.parcela__trabajos__table{
+    padding: 1vh;
+    height: 20vh;
+}
+hr{
+    width: 75%;
+}
+.parcela__trabajos__item{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 1vh;
+    box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 4.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 5.5px 6px rgba(0, 0, 0, 0.06),
+    0 6.3px 9.9px rgba(0, 0, 0, 0.072),
+    0 9.8px 14.4px rgba(0, 0, 0, 0.086),
+    0 9px 20px rgba(0, 0, 0, 0.12)
+  ;
+    text-align: center;
+    margin-top: 1vh;
+}
