@@ -31,6 +31,11 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                     <form action="menu.php">
                         <?php
                         if (in_array('Agricultor', $roles)) {
+                            if(isset($_REQUEST['programarParcela'])){
+                                insertarTrabajo( $_REQUEST['tipoTrabajo'], $_REQUEST['piloto'], $_SESSION['idUsuario'], $_REQUEST['programarParcela']);
+                            } else if(isset($_REQUEST['eliminar_parcela'])){
+                                eliminarParcela($_REQUEST['seleccionar']);
+                            }
                         ?>
                             <li class="sidebar__navbar-list-item">
                                 Parcelas<button type="submit" value="parcela" name="opcion"><img class="sidebar__navbar-list-item-icon" src="img/parcelaIcon.png" alt="icono de parcela" />
@@ -123,58 +128,11 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                 ?>
                     <div class="wrapper__parcelas">
                         <h1 class="wrapper__title">Tus parcelas</h1>
-                        <div class="wrapper__parcelas-panel">
-
-                        </div>
-                    </div>
-                <?php
-                }
-            } else if ($_REQUEST['opcion'] == 'roles') {
-                if (in_array('Administrador', $roles)) {
-                ?>
-                    <div class="wrapper__admin">
-                        <form action="editarUsuario.php">
-                            <h1 class="wrapper__title">Mostrar usuarios</h1>
-                            <div class="wrapper__admin-header">
-                                <div class="wrapper__admin-header-icon">
-                                    Icono de perfil
-                                </div>
-                                <div class="wrapper__admin-header-id">
-                                    IdUsuario
-                                </div>
-                                <div class="wrapper__admin-header-nombre">
-                                    Nombre
-                                </div>
-                                <div class="wrapper__admin-header-apellido">
-                                    Apellido
-                                </div>
-                                <div class="wrapper__admin-header-dni">
-                                    DNI
-                                </div>
-                                <div class="wrapper__admin-header-roles">
-                                    Roles
-                                </div>
-                                <div class="wrapper__admin-header-select">
-                                    Seleccionar
-                                </div>
-                            </div>
-                            <div class="wrapper__admin-users">
-
-                            </div>
-                        </form>
-                        <script src="javascript/adminUser.js"></script>
-                    </div>
-                <?php
-                } else {
-                    print('Usted no tiene permisos para entrar aqui!');
-                }
-            } else if ($_REQUEST['opcion'] == 'parcela') {
-                ?>
-                <div class="wrapper__parcelas">
-                    <h1 class="wrapper__title">Tus parcelas</h1>
+                        <div class="wrapper__parcelas">
+                    <form action="menu.php">
                     <div class="wrapper__buttons">
                         <button id="crear_parcela" value="crear_parcela">Crear Parcela</button>
-                        <button id="eliminar_parcela" value="eliminar_parcela">Eliminar Parcela</button>
+                        <button type="submit" name="eliminar_parcela" id="eliminar_parcela" value="eliminar_parcela">Eliminar Parcela</button>
                     </div>
                     <div class="parcelas_table">
                         <div class="parcela__table__header">
@@ -221,13 +179,162 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                             ?>
                         </div>
                     </div>
+                    </form>
                     <div class="wrapper__parcelas-panel">
                         <div class="parcela__item">
                             <div class="parcela__data">
                             <h2>Crear Trabajo Rapido</h2>
                             <hr>
                                 <div class="parcela__form__data">
-                                    <form class="parcela__data__form" action="get">
+                                    <form class="parcela__data__form" action="menu.php">
+                                        <h2>Seleccionar Trabajo</h2>
+                                        <select name="tipoTrabajo">
+                                            <option>Abonar</option>
+                                            <option>Fumigar</option>
+                                        </select>
+                                        <h2>Seleccionar Piloto</h2>
+                                        <select name="piloto">
+                                            <?php
+                                            $pilotos = recuperarPilotos();
+                                            foreach ($pilotos as $piloto) {
+                                            ?>
+                                                <option value="<?= $piloto[0] ?>"><?= $piloto[1] ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                        <button type="submit" name="programarParcela" value="Programar Trabajo">Programar Trabajo</button>
+                                    </form>
+                                </div>
+                                <h2>Ultimos Trabajos en la Parcela</h2>
+                                <hr>
+                                <div class="parcela__trabajos__table">
+                                    <div class="parcela__trabajos__table__header">
+                                        <div class="parcela__header__id">
+                                            Tipo Trabajo
+                                        </div>
+                                        <div class="parcela__header__area">
+                                            Piloto
+                                        </div>
+                                        <div class="parcela__header__municipio">
+                                            Fecha de Finalizacion
+                                        </div>
+                                    </div>
+                                    <div class="parcela__trabajos__items">
+                                    
+                                </div>
+                                </div>
+                            </div>
+                            <div id="map">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                <?php
+                }
+            } else if ($_REQUEST['opcion'] == 'roles') {
+                if (in_array('Administrador', $roles)) {
+                ?>
+                    <div class="wrapper__admin">
+                        <form action="editarUsuario.php">
+                            <h1 class="wrapper__title">Mostrar usuarios</h1>
+                            <div class="wrapper__admin-header">
+                                <div class="wrapper__admin-header-icon">
+                                    Icono de perfil
+                                </div>
+                                <div class="wrapper__admin-header-id">
+                                    IdUsuario
+                                </div>
+                                <div class="wrapper__admin-header-nombre">
+                                    Nombre
+                                </div>
+                                <div class="wrapper__admin-header-apellido">
+                                    Apellido
+                                </div>
+                                <div class="wrapper__admin-header-dni">
+                                    DNI
+                                </div>
+                                <div class="wrapper__admin-header-roles">
+                                    Roles
+                                </div>
+                                <div class="wrapper__admin-header-select">
+                                    Seleccionar
+                                </div>
+                            </div>
+                            <div class="wrapper__admin-users">
+
+                            </div>
+                        </form>
+                        <script src="javascript/adminUser.js"></script>
+                    </div>
+                <?php
+                } else {
+                    print('Usted no tiene permisos para entrar aqui!');
+                }
+            } else if ($_REQUEST['opcion'] == 'parcela') {
+                ?>
+                <div class="wrapper__parcelas">
+                    <h1 class="wrapper__title">Tus parcelas</h1>
+                    <form action="menu.php">
+                    <div class="wrapper__buttons">
+                        <button id="crear_parcela" value="crear_parcela">Crear Parcela</button>
+                        <button type="submit" name="eliminar_parcela" id="eliminar_parcela" value="eliminar_parcela">Eliminar Parcela</button>
+                    </div>
+                    <div class="parcelas_table">
+                        <div class="parcela__table__header">
+                            <div class="parcela__header__id">
+                                Id
+                            </div>
+                            <div class="parcela__header__area">
+                                Area
+                            </div>
+                            <div class="parcela__header__municipio">
+                                Municipio
+                            </div>
+                            <div class="parcela__header__provincia">
+                                Provincia
+                            </div>
+                            <div class="parcela__header__seleccionar">
+                                Seleccionar
+                            </div>
+                        </div>
+                        <div class="parcela__table__items">
+                            <?php
+                            $parcelas = recuperarParcelas($_SESSION['idUsuario']);
+                            foreach ($parcelas as $parcela) {
+                            ?>
+                                <div class="parcela__table__item">
+                                    <div class="parcela__id">
+                                        <?= $parcela[0] ?>
+                                    </div>
+                                    <div class="parcela__area">
+                                        <?= $parcela[1] ?>
+                                    </div>
+                                    <div class="parcela__municipio">
+                                        <?= $parcela[2] ?>
+                                    </div>
+                                    <div class="parcela__provincia">
+                                        <?= $parcela[3] ?>
+                                    </div>
+                                    <div class="parcela__seleccionar">
+                                        <input type="radio" name="seleccionar" onclick="recuperarParcela(<?= (int)$parcela[0] ?>)" value="<?= $parcela[0] ?>">
+                                    </div>
+                                </div>
+                            <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    </form>
+                    <div class="wrapper__parcelas-panel">
+                        <div class="parcela__item">
+                            <div class="parcela__data">
+                            <h2>Crear Trabajo Rapido</h2>
+                            <hr>
+                                <div class="parcela__form__data">
+                                    <form class="parcela__data__form" action="menu.php">
                                         <h2>Seleccionar Trabajo</h2>
                                         <select name="tipoTrabajo">
                                             <option>Abonar</option>
