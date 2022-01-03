@@ -222,4 +222,20 @@ function recuperarParcela($idParcela){
     return $parcelas;
 }
 
+function recuperarPilotos(){
+    include 'conexionBD.php';
+    $instruccion = "SELECT * FROM ((usuario INNER JOIN usuario_rol ON usuario.idUsuario = usuario_rol.idUsuario) INNER JOIN rol ON rol.idRol = usuario_rol.idRol) WHERE rol.nombre_rol = 'Piloto';";
+    $query = mysqli_query($conexion, $instruccion);
+    $nFilas = mysqli_num_rows($query);
+    $pilotos = array();
+    for ($i=0; $i < $nFilas; $i++) { 
+        $resultado = mysqli_fetch_array($query);
+        $id = $resultado['idUsuario'];
+        $nombre = $resultado['nombre'].' '.$resultado['apellido'];
+        array_push($pilotos, array($id, $nombre));
+    }
+    mysqli_close($conexion);
+    return $pilotos;
+}
+
 ?>
