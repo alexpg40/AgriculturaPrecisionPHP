@@ -259,9 +259,29 @@ button, input[type="submit"], input[type="reset"] {
 }
 
 #map{
-    width: 60%;
+    width: 50%;
     height: 50vh;
 }
 .parcela__data{
-    width: 40%;
+    width: 50%;
+}
+
+.parcela__data__form{
+    display: flex;
+    flex-direction: column;
+    padding: 1vh;
+    align-items: flex-start;
+}
+.parcela__data__form * {
+    padding: 5px;
+}
+select{
+    font-size: 20px;
+}
+
+.parcela__data__form button[type="submit"]{
+    background-color: #1c0d02;
+    margin-top: 2vh;
+    color: white;
+    padding: 1vh;
 }
