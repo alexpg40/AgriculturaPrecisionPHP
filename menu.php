@@ -35,7 +35,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         if (in_array('Agricultor', $roles)) {
                         ?>
                             <li class="sidebar__navbar-list-item">
-                                Parcelas<button type="submit" value="parcela" name="opcion" /><img class="sidebar__navbar-list-item-icon" src="img/parcelaIcon.png" alt="icono de parcela" />
+                                Parcelas<button type="submit" value="parcela" name="opcion" ><img class="sidebar__navbar-list-item-icon" src="img/parcelaIcon.png" alt="icono de parcela" />
                             </li>
                         <?php
                         }
@@ -44,7 +44,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         if (in_array('Piloto', $roles)) {
                         ?>
                             <li class="sidebar__navbar-list-item">
-                                Trabajos<button type="submit" value="trabajo" name="opcion" /><img class="sidebar__navbar-list-item-icon" src="img/trabajosIcon.png" alt="icono de trabajo" />
+                                Trabajos<button type="submit" value="trabajo" name="opcion"><img class="sidebar__navbar-list-item-icon" src="img/trabajosIcon.png" alt="icono de trabajo" />
                             </li>
                         <?php
                         }
@@ -53,7 +53,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         if (in_array('Piloto', $roles)) {
                         ?>
                             <li class="sidebar__navbar-list-item">
-                                Drones<button type="submit" value="drones" name="opcion" /><img class="sidebar__navbar-list-item-icon" src="img/dronIcon.png" alt="icono de dron" />
+                                Drones<button type="submit" value="drones" name="opcion" ><img class="sidebar__navbar-list-item-icon" src="img/dronIcon.png" alt="icono de dron" />
                             </li>
                         <?php
                         }
@@ -62,13 +62,13 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         if (in_array('Administrador', $roles)) {
                         ?>
                             <li class="sidebar__navbar-list-item">
-                                Administrar Roles<button type="submit" value="roles" name="opcion" /><img class="sidebar__navbar-list-item-icon" src="img/adminIcon.png" alt="icono de roles" />
+                                Administrar Roles<button type="submit" value="roles" name="opcion" ><img class="sidebar__navbar-list-item-icon" src="img/adminIcon.png" alt="icono de roles" />
                             </li>
                         <?php
                         }
                         ?>
                         <li class="sidebar__navbar-list-item">
-                            Cerrar Sesion<button type="submit" value="logout" name="opcion" /><img class="sidebar__navbar-list-item-icon" src="img/logoutIcon.png" alt="icono de cerrar sesion" />
+                            Cerrar Sesion<button type="submit" value="logout" name="opcion" ><img class="sidebar__navbar-list-item-icon" src="img/logoutIcon.png" alt="icono de cerrar sesion" />
                         </li>
                     </form>
                 </ul>
@@ -176,7 +176,6 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                     <h1 class="wrapper__title">Tus parcelas</h1>
                     <div class="wrapper__buttons">
                         <button id="crear_parcela" value="crear_parcela">Crear Parcela</button>
-                        <button id="programar_trabajo" value="programar_trabajo">Programar Trabajo</button>
                         <button id="eliminar_parcela" value="eliminar_parcela">Eliminar Parcela</button>
                     </div>
                     <div class="parcelas_table">
@@ -216,7 +215,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                                 <?=$parcela[3]?>
                                             </div>
                                             <div class="parcela__seleccionar">
-                                                <input type="radio" name="provincia" onclick="recuperarParcela(<?=(int)$parcela[0]?>)" value="<?=$parcela[0]?>">
+                                                <input type="radio" name="seleccionar" onclick="recuperarParcela(<?=(int)$parcela[0]?>)" value="<?=$parcela[0]?>">
                                             </div>
                                         </div>
                                     <?php
@@ -227,7 +226,25 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                     <div class="wrapper__parcelas-panel">
                         <div class="parcela__item">
                             <div class="parcela__data">
-
+                                <form class="parcela__data__form" action="get">
+                                    <h2>Seleccionar Trabajo</h2>
+                                    <select name="tipoTrabajo">
+                                        <option>Abonar</option>
+                                        <option>Fumigar</option>
+                                    </select>
+                                    <h2>Seleccionar Piloto</h2>
+                                    <select name="piloto">
+                                        <?php
+                                            $pilotos = recuperarPilotos();
+                                            foreach($pilotos as $piloto){
+                                                ?>
+                                                    <option value="<?=$piloto[0]?>"><?=$piloto[1]?></option>
+                                                <?php
+                                            }
+                                        ?>
+                                    </select>
+                                    <button type="submit" name="programarParcela" value="Programar Trabajo">Programar Parcela</button>
+                                </form>
                             </div>
                             <div id="map">
 
