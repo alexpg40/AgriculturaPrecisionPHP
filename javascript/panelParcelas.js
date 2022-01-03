@@ -1,3 +1,10 @@
+window.onload = () =>{
+    let primerRadioButton = document.getElementsByName('seleccionar')[0];
+    primerRadioButton.setAttribute('checked', '')
+    recuperarParcela(primerRadioButton.value)
+}
+
+
 
 const recuperarParcela = (idParcela) => {
     fetch("scripts/recuperarParcelas.php?idParcela=" + idParcela)
@@ -10,11 +17,12 @@ const recuperarParcela = (idParcela) => {
         })
         .then((parcelas) => {
             console.log(parcelas.parcelas);
-            let mapa = crearAreaParcela(parcelas.parcelas[0][4]);
+            crearAreaParcela(parcelas.parcelas[0]);
         })
 }
 
-const crearAreaParcela = (puntos) => {
+const crearAreaParcela = (parcela) => {
+    let puntos = parcela[4];
     let divMap = document.getElementById('map');
     let mapContainer = document.getElementsByClassName('parcela__item')[0];
     if(divMap != undefined){
@@ -22,16 +30,12 @@ const crearAreaParcela = (puntos) => {
     }
     let mapDiv = document.createElement('div');
     mapDiv.id = "map";
-    console.log(mapDiv);
     mapContainer.appendChild(mapDiv);
     let mapa = L.map('map').setView(puntos[0], 17);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(mapa);
-    let poligonoParcela = L.polygon(puntos, { color: 'green' }).addTo(mapa);
-    return mapa;
-}
-
-const cambiarMapa = (mapa, puntos) =>{
-
+    L.polygon(puntos, { color: 'green' }).addTo(mapa);
+    let submitTrabajo = document.getElementsByName('programarParcela')[0];
+    submitTrabajo.value = parcela[0];
 }
