@@ -240,7 +240,7 @@ function recuperarPilotos(){
 
 function recuperarTrabajos($idParcela){
     include 'conexionBD.php';
-    $instruccion = "SELECT trabajo.tipoTarea, usuario.nombre, usuario.apellido, trabajo.fechaFinalizacion FROM ((trabajo INNER JOIN dron ON trabajo.idDron = dron.idDron) INNER JOIN usuario ON usuario.idUsuario = dron.idPiloto) WHERE trabajo.idParcela = '$idParcela';";
+    $instruccion = "SELECT * FROM trabajo, usuario WHERE usuario.idUsuario = trabajo.idPiloto;";
     $query = mysqli_query($conexion,$instruccion);
     $nFilas = mysqli_num_rows($query);
     $trabajos = array();
@@ -254,6 +254,20 @@ function recuperarTrabajos($idParcela){
     }
     mysqli_close($conexion);
     return $trabajos;
+}
+
+function insertarTrabajo($tipoTarea, $idPiloto, $idAgricultor){
+    include 'conexionBD.php';
+    $instruccion = "INSERT INTO trabajo (tipoTarea, idPiloto, idAgricultor) VALUES ('$tipoTarea', '$idPiloto', '$idAgricultor')";
+    mysqli_query($conexion, $instruccion);
+    mysqli_close($conexion);
+}
+
+function eliminarParcela($idParcela){
+    include 'conexionBD.php';
+    $instruccion = "DELETE FROM parcela WHERE idParcela = '$idParcela'";
+    mysqli_query($conexion, $instruccion);
+    mysqli_close($conexion);
 }
 
 ?>
