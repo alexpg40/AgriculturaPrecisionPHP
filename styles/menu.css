@@ -315,5 +315,9 @@ hr{
     0 9px 20px rgba(0, 0, 0, 0.12)
   ;
     text-align: center;
-    margin-top: 1vh;
+    margin: 1vh;
+}
+.parcela__trabajos__items{
+    overflow: auto;
+    height: 15vh;
 }
