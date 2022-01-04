@@ -18,7 +18,7 @@ const recuperarParcela = (idParcela) => {
         })
         .then((parcelas) => {
             crearAreaParcela(parcelas.parcelas[0]);
-            recuperarTrabajos(parcelas.parcelas[0]);
+            recuperarTrabajos(idParcela);
         })
 }
 
@@ -56,12 +56,11 @@ const recuperarTrabajos = (idParcela) => {
 }
 
 const crearTablaTrabajos = (objeto) => {
-    let trabajos = objeto.trabajos;
+    let trabajos = objeto.trabajos.reverse();
     let trabajosContainer = document.getElementsByClassName('parcela__trabajos__items')[0];
     while(trabajosContainer.hasChildNodes()){
         trabajosContainer.removeChild(trabajosContainer.childNodes[0]);
     }
-    console.log(trabajosContainer);
     trabajos.forEach(trabajo => {
         let trabajoItem = document.createElement('div');
         trabajoItem.className = "parcela__trabajos__item";
