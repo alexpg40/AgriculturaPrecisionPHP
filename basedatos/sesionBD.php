@@ -240,7 +240,7 @@ function recuperarPilotos(){
 
 function recuperarTrabajos($idParcela){
     include 'conexionBD.php';
-    $instruccion = "SELECT * FROM trabajo, usuario WHERE usuario.idUsuario = trabajo.idPiloto;";
+    $instruccion = "SELECT * FROM trabajo, usuario WHERE usuario.idUsuario = trabajo.idPiloto AND trabajo.idParcela = '$idParcela';";
     $query = mysqli_query($conexion,$instruccion);
     $nFilas = mysqli_num_rows($query);
     $trabajos = array();
@@ -270,6 +270,17 @@ function eliminarParcela($idParcela){
     include 'conexionBD.php';
     $instruccion = "DELETE FROM parcela WHERE idParcela = '$idParcela'";
     mysqli_query($conexion, $instruccion);
+    mysqli_close($conexion);
+}
+
+function insertarPuntos($idParcela, $puntos){
+    include 'conexionBD.php';
+    foreach($puntos as $punto){
+        $lon = $punto[0];
+        $lat = $punto[1];
+        $instruccion = "INSERT INTO punto (idParcela, Lon, Lat) VALUES ('$idParcela', '$lon', '$lat')";
+        mysqli_query($conexion,$instruccion);
+    }
     mysqli_close($conexion);
 }
 
