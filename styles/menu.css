@@ -224,6 +224,7 @@ button, input[type="submit"], input[type="reset"] {
 
 .parcelas_table{
     height: 20vh;
+    overflow: auto;
 }
 .parcela__table__item{
     display: grid;
@@ -320,4 +321,36 @@ hr{
 .parcela__trabajos__items{
     overflow: auto;
     height: 15vh;
+}
+
+#crear_parcela{
+    display: none;
+    
+}
+
+.wrapper__buttons label{
+    background-color: #1c0d02;
+    color: white;
+    padding: 1vh;
+}
+
+.crear_parcela_label{
+    background-color: #1c0d02;
+    color: white;
+    padding: 1vh;
+}
+
+#eliminar_parcela{
+    background-color: #1c0d02;
+    color: white;
+    margin-top: 1vh;
+    padding: 1vh;
+}
+
+.wrapper__buttons label:hover{
+    cursor: pointer;
+}
+
+.xd{
+ display: flex;
 }
