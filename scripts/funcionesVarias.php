@@ -1,7 +1,7 @@
 <?php
 
-    function leerPuntosXML(){
-        $xml = simplexml_load_file("http://localhost/AgriculturaPrecisionPHP/ficheros/recintos/recintos.gml");
+    function leerPuntosXML($fichero){
+        $xml = simplexml_load_file("http://localhost/AgriculturaPrecisionPHP/".$fichero);
         $stringPuntos = $xml->featureMember->Recinto->geometry->Polygon->exterior->LinearRing->posList;
         $arrayPuntos = explode(' ', $stringPuntos);
         $puntos = array();
