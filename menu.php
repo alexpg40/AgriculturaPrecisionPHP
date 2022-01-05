@@ -138,9 +138,9 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                     <div class="wrapper__parcelas">
                         <h1 class="wrapper__title">Tus parcelas</h1>
                         <div class="wrapper__parcelas">
-                            <form enctype="multipart/form-data" action="menu.php" method="POST">
+                            <form enctype="multipart/form-data" action="menu.php" method="POST" class="xd">
                                 <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
-                                <label for="crear_parcela">
+                                <label class="crear_parcela_label" for="crear_parcela">
                                     Crear Parcela
                                 </label>
                                 <input type="file" name="crear_parcela" onchange="this.form.submit()" id="crear_parcela">
