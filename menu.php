@@ -28,14 +28,22 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
         <div class="sidebar">
             <navbar class="sidebar__navbar">
                 <ul class="sidebar__navbar-list">
+                    <?php
+                        if (isset($_REQUEST['programarParcela'])) {
+                            insertarTrabajo($_REQUEST['tipoTrabajo'], $_REQUEST['piloto'], $_SESSION['idUsuario'], $_REQUEST['programarParcela']);
+                        } else if (isset($_REQUEST['eliminar_parcela'])) {
+                            eliminarParcela($_REQUEST['seleccionar']);
+                        } else if (isset($_FILES['crear_parcela']['name'])){
+                            $directorio = 'ficheros\recintos';
+                            $fichero = $directorio . basename($_FILES['crear_parcela']['name'][0] . (string )time());
+                            move_uploaded_file($_FILES['crear_parcela']['tmp_name'][0], $fichero);
+                            include 'scripts\funcionesVarias.php';
+                            $parcela = leerPuntosXML($fichero);
+                        }
+                    ?>
                     <form action="menu.php">
                         <?php
                         if (in_array('Agricultor', $roles)) {
-                            if(isset($_REQUEST['programarParcela'])){
-                                insertarTrabajo( $_REQUEST['tipoTrabajo'], $_REQUEST['piloto'], $_SESSION['idUsuario'], $_REQUEST['programarParcela']);
-                            } else if(isset($_REQUEST['eliminar_parcela'])){
-                                eliminarParcela($_REQUEST['seleccionar']);
-                            }
                         ?>
                             <li class="sidebar__navbar-list-item">
                                 Parcelas<button type="submit" value="parcela" name="opcion"><img class="sidebar__navbar-list-item-icon" src="img/parcelaIcon.png" alt="icono de parcela" />
@@ -129,108 +137,115 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                     <div class="wrapper__parcelas">
                         <h1 class="wrapper__title">Tus parcelas</h1>
                         <div class="wrapper__parcelas">
-                    <form action="menu.php">
-                    <div class="wrapper__buttons">
-                        <button id="crear_parcela" value="crear_parcela">Crear Parcela</button>
-                        <button type="submit" name="eliminar_parcela" id="eliminar_parcela" value="eliminar_parcela">Eliminar Parcela</button>
-                    </div>
-                    <div class="parcelas_table">
-                        <div class="parcela__table__header">
-                            <div class="parcela__header__id">
-                                Id
-                            </div>
-                            <div class="parcela__header__area">
-                                Area
-                            </div>
-                            <div class="parcela__header__municipio">
-                                Municipio
-                            </div>
-                            <div class="parcela__header__provincia">
-                                Provincia
-                            </div>
-                            <div class="parcela__header__seleccionar">
-                                Seleccionar
-                            </div>
-                        </div>
-                        <div class="parcela__table__items">
-                            <?php
-                            $parcelas = recuperarParcelas($_SESSION['idUsuario']);
-                            foreach ($parcelas as $parcela) {
-                            ?>
-                                <div class="parcela__table__item">
-                                    <div class="parcela__id">
-                                        <?= $parcela[0] ?>
-                                    </div>
-                                    <div class="parcela__area">
-                                        <?= $parcela[1] ?>
-                                    </div>
-                                    <div class="parcela__municipio">
-                                        <?= $parcela[2] ?>
-                                    </div>
-                                    <div class="parcela__provincia">
-                                        <?= $parcela[3] ?>
-                                    </div>
-                                    <div class="parcela__seleccionar">
-                                        <input type="radio" name="seleccionar" onclick="recuperarParcela(<?= (int)$parcela[0] ?>)" value="<?= $parcela[0] ?>">
-                                    </div>
-                                </div>
-                            <?php
-                            }
-                            ?>
-                        </div>
-                    </div>
-                    </form>
-                    <div class="wrapper__parcelas-panel">
-                        <div class="parcela__item">
-                            <div class="parcela__data">
-                            <h2>Crear Trabajo Rapido</h2>
-                            <hr>
-                                <div class="parcela__form__data">
-                                    <form class="parcela__data__form" action="menu.php">
-                                        <h2>Seleccionar Trabajo</h2>
-                                        <select name="tipoTrabajo">
-                                            <option>Abonar</option>
-                                            <option>Fumigar</option>
-                                        </select>
-                                        <h2>Seleccionar Piloto</h2>
-                                        <select name="piloto">
-                                            <?php
-                                            $pilotos = recuperarPilotos();
-                                            foreach ($pilotos as $piloto) {
-                                            ?>
-                                                <option value="<?= $piloto[0] ?>"><?= $piloto[1] ?></option>
-                                            <?php
-                                            }
-                                            ?>
-                                        </select>
-                                        <button type="submit" name="programarParcela" value="Programar Trabajo">Programar Trabajo</button>
+                                <div class="wrapper__buttons">
+                                    <form enctype="multipart/form-data" action="menu.php" method="POST">
+                                    <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
+                                        <label for="crear_parcela">
+                                            Crear Parcela
+                                        </label>
+                                        <input type="file" name="crear_parcela" onchange="this.form.submit()" id="crear_parcela">
+                                    </form>
+                                    <form action="menu.php">
+                                    <button type="submit" name="eliminar_parcela" id="eliminar_parcela" value="eliminar_parcela">Eliminar Parcela</button>
                                     </form>
                                 </div>
-                                <h2>Ultimos Trabajos en la Parcela</h2>
-                                <hr>
-                                <div class="parcela__trabajos__table">
-                                    <div class="parcela__trabajos__table__header">
+                                <div class="parcelas_table">
+                                    <div class="parcela__table__header">
                                         <div class="parcela__header__id">
-                                            Tipo Trabajo
+                                            Id
                                         </div>
                                         <div class="parcela__header__area">
-                                            Piloto
+                                            Area
                                         </div>
                                         <div class="parcela__header__municipio">
-                                            Fecha de Finalizacion
+                                            Municipio
+                                        </div>
+                                        <div class="parcela__header__provincia">
+                                            Provincia
+                                        </div>
+                                        <div class="parcela__header__seleccionar">
+                                            Seleccionar
                                         </div>
                                     </div>
-                                    <div class="parcela__trabajos__items">
-                                    
+                                    <div class="parcela__table__items">
+                                        <?php
+                                        $parcelas = recuperarParcelas($_SESSION['idUsuario']);
+                                        foreach ($parcelas as $parcela) {
+                                        ?>
+                                            <div class="parcela__table__item">
+                                                <div class="parcela__id">
+                                                    <?= $parcela[0] ?>
+                                                </div>
+                                                <div class="parcela__area">
+                                                    <?= $parcela[1] ?>
+                                                </div>
+                                                <div class="parcela__municipio">
+                                                    <?= $parcela[2] ?>
+                                                </div>
+                                                <div class="parcela__provincia">
+                                                    <?= $parcela[3] ?>
+                                                </div>
+                                                <div class="parcela__seleccionar">
+                                                    <input type="radio" name="seleccionar" onclick="recuperarParcela(<?= (int)$parcela[0] ?>)" value="<?= $parcela[0] ?>">
+                                                </div>
+                                            </div>
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
-                                </div>
-                            </div>
-                            <div id="map">
 
+                            <div class="wrapper__parcelas-panel">
+                                <div class="parcela__item">
+                                    <div class="parcela__data">
+                                        <h2>Crear Trabajo Rapido</h2>
+                                        <hr>
+                                        <div class="parcela__form__data">
+                                            <form class="parcela__data__form" action="menu.php">
+                                                <h2>Seleccionar Trabajo</h2>
+                                                <select name="tipoTrabajo">
+                                                    <option>Abonar</option>
+                                                    <option>Fumigar</option>
+                                                </select>
+                                                <h2>Seleccionar Piloto</h2>
+                                                <select name="piloto">
+                                                    <?php
+                                                    $pilotos = recuperarPilotos();
+                                                    foreach ($pilotos as $piloto) {
+                                                    ?>
+                                                        <option value="<?= $piloto[0] ?>"><?= $piloto[1] ?></option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                                <button type="submit" name="programarParcela" value="Programar Trabajo">Programar Trabajo</button>
+                                            </form>
+                                        </div>
+                                        <h2>Ultimos Trabajos en la Parcela</h2>
+                                        <hr>
+                                        <div class="parcela__trabajos__table">
+                                            <div class="parcela__trabajos__table__header">
+                                                <div class="parcela__header__id">
+                                                    Tipo Trabajo
+                                                </div>
+                                                <div class="parcela__header__area">
+                                                    Piloto
+                                                </div>
+                                                <div class="parcela__header__municipio">
+                                                    Fecha de Finalizacion
+                                                </div>
+                                            </div>
+                                            <div class="parcela__trabajos__items">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="map">
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
                     </div>
                 <?php
                 }
@@ -278,61 +293,61 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                 <div class="wrapper__parcelas">
                     <h1 class="wrapper__title">Tus parcelas</h1>
                     <form action="menu.php">
-                    <div class="wrapper__buttons">
-                        <button id="crear_parcela" value="crear_parcela">Crear Parcela</button>
-                        <button type="submit" name="eliminar_parcela" id="eliminar_parcela" value="eliminar_parcela">Eliminar Parcela</button>
-                    </div>
-                    <div class="parcelas_table">
-                        <div class="parcela__table__header">
-                            <div class="parcela__header__id">
-                                Id
-                            </div>
-                            <div class="parcela__header__area">
-                                Area
-                            </div>
-                            <div class="parcela__header__municipio">
-                                Municipio
-                            </div>
-                            <div class="parcela__header__provincia">
-                                Provincia
-                            </div>
-                            <div class="parcela__header__seleccionar">
-                                Seleccionar
-                            </div>
+                        <div class="wrapper__buttons">
+                            <button id="crear_parcela" value="crear_parcela">Crear Parcela</button>
+                            <button type="submit" name="eliminar_parcela" id="eliminar_parcela" value="eliminar_parcela">Eliminar Parcela</button>
                         </div>
-                        <div class="parcela__table__items">
-                            <?php
-                            $parcelas = recuperarParcelas($_SESSION['idUsuario']);
-                            foreach ($parcelas as $parcela) {
-                            ?>
-                                <div class="parcela__table__item">
-                                    <div class="parcela__id">
-                                        <?= $parcela[0] ?>
-                                    </div>
-                                    <div class="parcela__area">
-                                        <?= $parcela[1] ?>
-                                    </div>
-                                    <div class="parcela__municipio">
-                                        <?= $parcela[2] ?>
-                                    </div>
-                                    <div class="parcela__provincia">
-                                        <?= $parcela[3] ?>
-                                    </div>
-                                    <div class="parcela__seleccionar">
-                                        <input type="radio" name="seleccionar" onclick="recuperarParcela(<?= (int)$parcela[0] ?>)" value="<?= $parcela[0] ?>">
-                                    </div>
+                        <div class="parcelas_table">
+                            <div class="parcela__table__header">
+                                <div class="parcela__header__id">
+                                    Id
                                 </div>
-                            <?php
-                            }
-                            ?>
+                                <div class="parcela__header__area">
+                                    Area
+                                </div>
+                                <div class="parcela__header__municipio">
+                                    Municipio
+                                </div>
+                                <div class="parcela__header__provincia">
+                                    Provincia
+                                </div>
+                                <div class="parcela__header__seleccionar">
+                                    Seleccionar
+                                </div>
+                            </div>
+                            <div class="parcela__table__items">
+                                <?php
+                                $parcelas = recuperarParcelas($_SESSION['idUsuario']);
+                                foreach ($parcelas as $parcela) {
+                                ?>
+                                    <div class="parcela__table__item">
+                                        <div class="parcela__id">
+                                            <?= $parcela[0] ?>
+                                        </div>
+                                        <div class="parcela__area">
+                                            <?= $parcela[1] ?>
+                                        </div>
+                                        <div class="parcela__municipio">
+                                            <?= $parcela[2] ?>
+                                        </div>
+                                        <div class="parcela__provincia">
+                                            <?= $parcela[3] ?>
+                                        </div>
+                                        <div class="parcela__seleccionar">
+                                            <input type="radio" name="seleccionar" onclick="recuperarParcela(<?= (int)$parcela[0] ?>)" value="<?= $parcela[0] ?>">
+                                        </div>
+                                    </div>
+                                <?php
+                                }
+                                ?>
+                            </div>
                         </div>
-                    </div>
                     </form>
                     <div class="wrapper__parcelas-panel">
                         <div class="parcela__item">
                             <div class="parcela__data">
-                            <h2>Crear Trabajo Rapido</h2>
-                            <hr>
+                                <h2>Crear Trabajo Rapido</h2>
+                                <hr>
                                 <div class="parcela__form__data">
                                     <form class="parcela__data__form" action="menu.php">
                                         <h2>Seleccionar Trabajo</h2>
@@ -369,8 +384,8 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                         </div>
                                     </div>
                                     <div class="parcela__trabajos__items">
-                                    
-                                </div>
+
+                                    </div>
                                 </div>
                             </div>
                             <div id="map">
