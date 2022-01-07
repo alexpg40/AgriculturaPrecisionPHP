@@ -284,4 +284,29 @@ function insertarPuntos($idParcela, $puntos){
     mysqli_close($conexion);
 }
 
+function recuperarIdParcelaUltima(){
+    include 'conexionBD.php';
+    $instruccion = "SELECT LAST_INSERT_ID();";
+    $query = mysqli_query($conexion, $instruccion);
+    $resultado = mysqli_fetch_array($query);
+    $idParcela = $resultado[0];
+    print_r($resultado);
+    return $idParcela;
+}
+
+function insertarParcela($parcela, $idAgricultor){
+    include 'conexionBD.php';
+    $area = $parcela[1];
+    $municipio = $parcela[2];
+    $provincia = $parcela[3];
+    $instruccion = "INSERT INTO parcela (idAgricultor, area, municipio, provincia) VALUES ('$idAgricultor','$area','$municipio','$provincia');";
+    mysqli_query($conexion, $instruccion);
+    $instruccion = "SELECT LAST_INSERT_ID();";
+    $query = mysqli_query($conexion, $instruccion);
+    $resultado = mysqli_fetch_array($query);
+    $idParcela = $resultado['LAST_INSERT_ID()'];
+    insertarPuntos($idParcela, $parcela[0]);
+    mysqli_close($conexion);
+}
+
 ?>
