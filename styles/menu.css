@@ -224,8 +224,13 @@ button, input[type="submit"], input[type="reset"] {
 
 .parcelas_table{
     height: 20vh;
-    overflow: auto;
 }
+
+.parcela__table__items{
+    overflow: auto;
+    height:13vh;
+}
+
 .parcela__table__item{
     display: grid;
     padding: 1vh;
