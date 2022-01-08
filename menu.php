@@ -11,7 +11,6 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agricultura de Precisión - Menu</title>
     <link rel="stylesheet" href="styles/menu.css">
-    <script src="javascript/panelParcelas.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 </head>
 
@@ -244,8 +243,114 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                 </div>
                             </div>
                         </div>
+                        <script src="javascript/panelParcelas.js"></script>
                     </div>
                 <?php
+                } else if (in_array('Piloto', $roles)){
+                    $trabajos = recuperarTrabajosPorPiloto($_SESSION['idUsuario']);
+                    ?>
+                        <div class="wrapper__piloto">
+                            <h1>Tus Trabajos</h1>
+                            <div class="wrapper__trabajos">
+                                <h2>Trabajos sin terminar</h2>
+                                <div class="table__trabajos">
+                                    <div class="table__trabajos__header">
+                                        <div class="trabajos__header__id">
+                                            IdTrabajo
+                                        </div>
+                                        <div class="trabajos__header__tarea">
+                                            Tarea
+                                        </div>
+                                        <div class="trabajos__header__idParcela">
+                                            idParcela
+                                        </div>
+                                        <div class="trabajos__header__agricultor">
+                                            Agricultor
+                                        </div>
+                                        <div class="trabajos__header__realizar">
+                                            Realizar
+                                        </div>
+                                    </div>
+                                    <div class="table__trabajos__items">
+                                        <?php
+                                            foreach ($trabajos as $trabajo){
+                                                if($trabajo[4] == '0000-00-00'){
+                                                ?>
+                                                <div class="table__trabajos__item">
+                                                    <div class="trabajo__item__id">
+                                                        <?=$trabajo[0]?>
+                                                    </div>
+                                                    <div class="trabajo__item__tarea">
+                                                        <?=$trabajo[1]?>
+                                                    </div>
+                                                    <div class="trabajo__item__idParcela">
+                                                        <?=$trabajo[2]?>
+                                                    </div>
+                                                    <div class="trabajo__item__Agricultor">
+                                                        <?=$trabajo[3]?>
+                                                    </div>
+                                                    <div class="trabajo__item__realizar">
+                                                        <button>Realizar Trabajo</button>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                                }
+                                            }
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="table__historial">
+                                    <h2>Historial de Trabajos</h2>
+                                <div class="table__trabajos">
+                                    <div class="table__trabajos__header">
+                                        <div class="trabajos__header__id">
+                                            IdTrabajo
+                                        </div>
+                                        <div class="trabajos__header__tarea">
+                                            Tarea
+                                        </div>
+                                        <div class="trabajos__header__idParcela">
+                                            idParcela
+                                        </div>
+                                        <div class="trabajos__header__agricultor">
+                                            Agricultor
+                                        </div>
+                                        <div class="trabajos__header__fecha">
+                                            Terminado en
+                                        </div>
+                                    </div>
+                                    <div class="table__trabajos__items">
+                                        <?php
+                                            $historial = array_filter($trabajos, function ($trabajo){
+                                                return $trabajo[4] != '0000-00-00';
+                                            });
+                                            foreach ($historial as $trabajo){
+                                                ?>
+                                                <div class="table__trabajos__item">
+                                                    <div class="trabajo__item__id">
+                                                        <?=$trabajo[0]?>
+                                                    </div>
+                                                    <div class="trabajo__item__tarea">
+                                                        <?=$trabajo[1]?>
+                                                    </div>
+                                                    <div class="trabajo__item__idParcela">
+                                                        <?=$trabajo[2]?>
+                                                    </div>
+                                                    <div class="trabajo__item__Agricultor">
+                                                        <?=$trabajo[3]?>
+                                                    </div>
+                                                    <div class="trabajo__item__realizar">
+                                                        <?=$trabajo[4]?>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php
                 }
             } else if ($_REQUEST['opcion'] == 'roles') {
                 if (in_array('Administrador', $roles)) {
@@ -396,6 +501,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                     </div>
                                 </div>
                             </div>
+                            <script src="javascript/panelParcelas.js"></script>
                         </div>
                     </div>
             <?php
