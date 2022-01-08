@@ -187,7 +187,7 @@ function recuperarParcelas($idUsuario){
 
 function recuperarPuntosParcela($idParcela){
     include 'conexionBD.php';
-    $instruccion = "SELECT * FROM Punto WHERE idParcela = '$idParcela'";
+    $instruccion = "SELECT * FROM punto WHERE idParcela = '$idParcela'";
     $query = mysqli_query($conexion, $instruccion);
     $puntos = array();
     $nFilas = mysqli_num_rows($query);

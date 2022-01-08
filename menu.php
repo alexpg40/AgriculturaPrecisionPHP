@@ -37,7 +37,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         $directorio = 'ficheros/recintos/';
                         $fichero = $directorio . (string) time() . 'recintos.gml';
                         move_uploaded_file($_FILES['crear_parcela']['tmp_name'], $fichero);
-                        include 'scripts\funcionesVarias.php';
+                        include 'scripts/funcionesVarias.php'; 
                         $parcela = leerPuntosXML($fichero);
                         insertarParcela($parcela, $_SESSION['idUsuario']);
                     }
