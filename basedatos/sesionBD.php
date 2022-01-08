@@ -261,7 +261,7 @@ function recuperarTrabajos($idParcela){
 
 function insertarTrabajo($tipoTarea, $idPiloto, $idAgricultor, $idParcela){
     include 'conexionBD.php';
-    $instruccion = "INSERT INTO `trabajo` (`tipoTarea`, `idParcela`, `idPiloto`, `idAgricultor`) VALUES ('$tipoTarea', '$idParcela', '$idPiloto', '$idAgricultor')";
+    $instruccion = "INSERT INTO `trabajo` (`tipoTarea`, `idParcela`, `idPiloto`, `idAgricultor`, `fechaFinalizacion`) VALUES ('$tipoTarea', '$idParcela', '$idPiloto', '$idAgricultor', '0000-00-00')";
     mysqli_query($conexion, $instruccion);
     mysqli_close($conexion);
 }
@@ -307,6 +307,27 @@ function insertarParcela($parcela, $idAgricultor){
     $idParcela = $resultado['LAST_INSERT_ID()'];
     insertarPuntos($idParcela, $parcela[0]);
     mysqli_close($conexion);
+}
+
+function recuperarTrabajosPorPiloto($idPiloto){
+    include 'conexionBD.php';
+    $instruccion = "SELECT * FROM trabajo where idPiloto = '$idPiloto'";
+    $query = mysqli_query($conexion, $instruccion);
+    $nFilas = mysqli_num_rows($query);
+    $trabajos = array();
+    for ($i=0; $i < $nFilas; $i++) {
+        $resultado = mysqli_fetch_array($query);
+        $idTrabajos = $resultado['idTrabajo'];
+        $tipoTarea = $resultado['tipoTarea'];
+        $idParcela =  $resultado['idParcela'];
+        $idAgricultor = $resultado['idAgricultor'];
+        $agricultor = recuperarUsuario($idAgricultor);
+        $nombreAgricultor = $agricultor[1] . ' ' . $agricultor[2];
+        $fechaFinal = $resultado['fechaFinalizacion'];
+        array_push($trabajos, array($idTrabajos, $tipoTarea, $idParcela, $nombreAgricultor, $fechaFinal));
+    }
+    mysqli_close($conexion);
+    return $trabajos;
 }
 
 ?>
