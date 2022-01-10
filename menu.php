@@ -618,6 +618,16 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                     } else{
                         print('Usted no tiene permisos para entrar aqui!');
                     }
+                } else if ($_REQUEST['opcion'] == 'drones'){
+                    $drones = recuperarDrones($_SESSION['idUsuario']);
+                    print_r($drones);
+                    ?>
+                    <h1>Drones</h1>
+                    <div class="wrapper__drones">
+                        <h2>Tus Drones</h2>
+                        
+                    </div>
+                    <?php
                 }
                     ?>
                         </div>
