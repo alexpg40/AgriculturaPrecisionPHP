@@ -234,7 +234,6 @@ button, input[type="submit"], input[type="reset"] {
 .parcela__table__item{
     display: grid;
     padding: 1vh;
-    height: 2vh;
     text-align: center;
     grid-template-columns: repeat(5, 1fr);
     box-shadow:
@@ -374,7 +373,6 @@ hr{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     text-align: center;
-    padding: 1vh;
     box-shadow:
     0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 4.7px 5.3px rgba(0, 0, 0, 0.048),
@@ -388,4 +386,16 @@ hr{
 
 .table__trabajos{
     height: 40vh;
+}
+.trabajo__item__realizar button{
+    background-color: #1c0d02;
+    color: white;
+    padding: 1vh;
+}
+
+.table__trabajos__item div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1vh;
 }
