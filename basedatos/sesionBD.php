@@ -330,4 +330,22 @@ function recuperarTrabajosPorPiloto($idPiloto){
     return $trabajos;
 }
 
+function recuperarDrones($idPiloto){
+    include 'conexionBD.php';
+    $instruccion = "SELECT * FROM dron WHERE idPiloto = '$idPiloto'";
+    $query = mysqli_query($conexion, $instruccion);
+    $nFilas = mysqli_num_rows($query);
+    $drones = array();
+    for ($i=0; $i < $nFilas; $i++) {
+        $resultado = mysqli_fetch_array($query);
+        $marca = $resultado['marca'];
+        $imagen  = $resultado['imagen'];
+        $autonomia = $resultado['autonomia'];
+        $tanque = $resultado['capacidad_tanque'];
+        array_push($drones, array($marca, $imagen, $autonomia, $tanque));
+    }
+    mysqli_close($conexion);
+    return $drones;
+}
+
 ?>
