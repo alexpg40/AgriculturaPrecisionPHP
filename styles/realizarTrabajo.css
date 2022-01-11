@@ -1,0 +1,14 @@
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#map{
+    width: 100vh;
+    height: 90vh;
+}
+
+.trabajos__data{
+    width: 40vh;
+}

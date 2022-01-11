@@ -348,4 +348,15 @@ function recuperarDrones($idPiloto){
     return $drones;
 }
 
+function recuperarTrabajo($idTrabajo){
+    include 'conexionBD.php';
+    $instruccion = "SELECT * FROM trabajo WHERE idTrabajo = '$idTrabajo'";
+    $query = mysqli_query($conexion, $instruccion);
+    $resultado = mysqli_fetch_array($query);
+    $tipoTarea = $resultado['tipoTarea'];
+    $idParcela =  $resultado['idParcela'];
+    $idAgricultor = $resultado['idAgricultor'];
+    return array($tipoTarea, $idParcela, $idAgricultor);
+}
+
 ?>
