@@ -292,7 +292,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                                 </div>
                                                 <div class="trabajo__item__realizar">
                                                     <form action="realizarTrabajo.php">
-                                                        <button name="idTrabajo" zvalue="<?= $trabajo[0] ?>">Realizar Trabajo</button>
+                                                        <button name="idTrabajo" value="<?= $trabajo[0] ?>">Realizar Trabajo</button>
                                                     </form>
                                                 </div>
                                             </div>

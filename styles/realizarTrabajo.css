@@ -1,7 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 .wrapper{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
 }
 
 #map{
@@ -9,6 +14,29 @@
     height: 90vh;
 }
 
-.trabajos__data{
-    width: 40vh;
+.wrapper__trabajo{
+    width: 50vh;
+    margin: 2vh;
+}
+
+.datos__trabajo *{
+    margin: 1vh;
+}
+
+form{
+    padding: 1vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+h1{
+    margin-bottom: 2vh;
+}
+
+input[type="submit"]{
+    background-color: #1c0d02;
+    color: white;
+    padding: 1vh;
+    margin-top: 10px;
 }

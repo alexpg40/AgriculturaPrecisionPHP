@@ -96,12 +96,40 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
             </div>
         </div>
         <div class="wrapper">
-            <h1>Realizar Trabajo</h1>
             <?php
-                $trabajo = recuperarTrabajo($_GET['idTrabajo']);
+            $trabajo = recuperarTrabajo($_GET['idTrabajo']);
+            $agricultor = recuperarUsuario($trabajo[2]);
             ?>
+            <div class="wrapper__trabajo">
+                <h1>Realizar Trabajo</h2>
             <div class="trabajos__data">
                 <h2>Datos del Trabajo</h2>
+                <div class="datos__trabajo">
+                    <div class="tipo__trabajo">
+                        Tipo de Trabajo: <?= $trabajo[0] ?>
+                    </div>
+                    <div class="idAgricultor__trabajo">
+                        Agricultor solicito el trabajo: <?= $agricultor[1] . " " . $agricultor[2] ?>
+                    </div>
+                </div>
+            </div>
+            <div class="realizar__trabajo">
+                <h2>Dron para realizar Trabajo</h2>
+                <form action="realizarTrabajo.php">
+                    <label for="dron">Dron: </label>
+                    <select name="dron">
+                        <?php
+                        $drones = recuperarDrones($_SESSION['idUsuario']);
+                        foreach ($drones as $dron){
+                            ?>
+                            <option><?=$dron[0]?>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                    <input type="submit" name="realizarTrabajo" value="Realizar Trabajo">
+                </form>
+            </div>
             </div>
             <div class="mapContainer">
             </div>
@@ -109,7 +137,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
     </div>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script>
-        recuperarParcela(<?=$trabajo[1]?>)
+        recuperarParcela(<?= $trabajo[1] ?>)
     </script>
 </body>
 
