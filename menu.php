@@ -291,9 +291,9 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                                     <?= $trabajo[3] ?>
                                                 </div>
                                                 <div class="trabajo__item__realizar">
-                                                <form action="realizarTrabajo.php">
-                                                            <button name="idTrabajo" value="<?=$trabajo[0]?>">Realizar Trabajo</button>
-                                                        </form>
+                                                    <form action="realizarTrabajo.php">
+                                                        <button name="idTrabajo" zvalue="<?= $trabajo[0] ?>">Realizar Trabajo</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                     <?php
@@ -400,9 +400,9 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                     <div class="wrapper__parcelas">
                         <h1 class="wrapper__title">Tus parcelas</h1>
                         <div class="wrapper__parcelas">
-                            <form enctype="multipart/form-data" action="menu.php" method="POST">
+                            <form enctype="multipart/form-data" action="menu.php" method="POST" class="xd">
                                 <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
-                                <label for="crear_parcela">
+                                <label class="crear_parcela_label" for="crear_parcela">
                                     Crear Parcela
                                 </label>
                                 <input type="file" name="crear_parcela" onchange="this.form.submit()" id="crear_parcela">
@@ -505,8 +505,8 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                     </div>
                                 </div>
                             </div>
-                            <script src="javascript/panelParcelas.js"></script>
                         </div>
+                        <script src="javascript/panelParcelas.js"></script>
                     </div>
                     <?php
                 } else if ($_REQUEST['opcion'] == 'trabajo') {
@@ -556,7 +556,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                                     </div>
                                                     <div class="trabajo__item__realizar">
                                                         <form action="realizarTrabajo.php">
-                                                            <button name="idTrabajo" value="<?=$trabajo[0]?>">Realizar Trabajo</button>
+                                                            <button name="idTrabajo" value="<?= $trabajo[0] ?>">Realizar Trabajo</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -618,19 +618,67 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                     </div>
                                 </div>
                             </div>
-                    <?php
-                    } else{
+                        <?php
+                    } else {
                         print('Usted no tiene permisos para entrar aqui!');
                     }
-                } else if ($_REQUEST['opcion'] == 'drones'){
+                } else if ($_REQUEST['opcion'] == 'drones') {
                     $drones = recuperarDrones($_SESSION['idUsuario']);
-                    print_r($drones);
-                    ?>
-                    <h1>Drones</h1>
-                    <div class="wrapper__drones">
-                        <h2>Tus Drones</h2>
-                        
-                    </div>
+                        ?>
+                        <h1>Drones</h1>
+                        <div class="wrapper__drones">
+                            <form action="menu.php">
+                                <h2>Tus Drones</h2>
+                                <div class="botones__drones">
+                                    <input type="submit" value="Nuevo Dron">
+                                    <input type="submit" value="Borrar Dron">
+                                </div>
+                                <div class="table__drones">
+                                    <div class="table__drones__header">
+                                        <div class="drones__header__marca">
+                                            Marca/Modelo
+                                        </div>
+                                        <div class="drones__header__autonomia">
+                                            Autonomia (Horas)
+                                        </div>
+                                        <div class="drones__header__capacidad">
+                                            Capacidad (Litros)
+                                        </div>
+                                        <div class="drones__header__marca">
+                                            Imagen
+                                        </div>
+                                        <div class="drones__header__seleccionar">
+                                            Seleccionar
+                                        </div>
+                                    </div>
+                                    <div class="table__drones__items">
+                                        <?php
+                                        foreach ($drones as $dron) {
+                                        ?>
+                                            <div class="dron__item">
+                                                <div class="dron__item__marca">
+                                                    <?= $dron[0] ?>
+                                                </div>
+                                                <div class="dron__item__autonomia">
+                                                    <?= $dron[2] ?>
+                                                </div>
+                                                <div class="dron__item__capacidad">
+                                                    <?= $dron[3] ?>
+                                                </div>
+                                                <div class="dron__item__imagen">
+                                                    <a href="ficheros\drones\<?= $dron[1]?>">Ver Imagen</a>
+                                                </div>
+                                                <div class="dron__item__seleccionar">
+                                                    <input type="radio" name="dron" value="<?= $dron[4] ?>">
+                                                </div>
+                                            </div>
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     <?php
                 }
                     ?>
