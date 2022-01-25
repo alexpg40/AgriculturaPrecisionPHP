@@ -29,8 +29,11 @@ const crearMapa = (parcela) => {
     let mapaParcela = L.polygon(puntos, { color: 'green' }).addTo(mapa);
     let caja = L.rectangle(mapaParcela.getBounds(), { color: 'red' }).addTo(mapa);
     let lineaArriba = [caja._latlngs[0][1], caja._latlngs[0][2]];
+    let lineaAbajo = [caja._latlngs[0][3], caja._latlngs[0][0]];
     dividirRecta(mapa, lineaArriba)
-    lineaArriba.forEach(punto => { L.marker(punto).addTo(mapa); });
+    dividirRecta(mapa, lineaAbajo);
+    let polylinePath = ordenarPolypath(lineaArriba, lineaAbajo);
+    let polyline = L.polyline(polylinePath, {color: 'black'}).addTo(mapa);
 }
 
 const crearPuntoMedio = (mapa, latlng1, latlng2) => {
@@ -48,4 +51,17 @@ const dividirRecta = (mapa, puntos) => {
         puntos.push(...puntosNuevos);
         puntos.sort((a, b) => a.lng - b.lng);
     }
+}
+
+const ordenarPolypath = (lineaArriba, lineaAbajo) =>{
+    let polyPath = [];
+    polyPath.push(lineaAbajo[0]);
+    for (let i = 1; i < lineaArriba.length; i+=2) {
+        polyPath.push(lineaArriba[i - 1]);
+        polyPath.push(lineaArriba[i]);
+        polyPath.push(lineaAbajo[i]);
+        polyPath.push(lineaAbajo[i + 1]);
+    }
+    polyPath.push(lineaArriba[lineaArriba.length-1]);
+    return polyPath;
 }
