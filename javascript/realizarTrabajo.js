@@ -34,6 +34,7 @@ const crearMapa = (parcela) => {
     dividirRecta(mapa, lineaAbajo);
     let polylinePath = ordenarPolypath(lineaArriba, lineaAbajo);
     let polyline = L.polyline(polylinePath, {color: 'black'}).addTo(mapa);
+    console.log(polyline.toGeoJSON())
 }
 
 const crearPuntoMedio = (mapa, latlng1, latlng2) => {
@@ -43,7 +44,7 @@ const crearPuntoMedio = (mapa, latlng1, latlng2) => {
 }
 
 const dividirRecta = (mapa, puntos) => {
-    for (let j = 0; j < 3; j++) {
+    for (let j = 0; j < 5; j++) {
         let puntosNuevos = [];
         for (let i = 1; i < puntos.length; i++) {
             puntosNuevos.push(crearPuntoMedio(mapa, puntos[i-1], puntos[i]));
