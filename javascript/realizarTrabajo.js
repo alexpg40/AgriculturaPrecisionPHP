@@ -77,10 +77,16 @@ const ordenarPolypath = (lineaArriba, lineaAbajo) =>{
 
 const ordenarPolypathInterior = (coordenadas) => {
     let ret = [];
-    for (let i = 2; i < coordenadas.length; i+=3) {
-        ret.push(coordenadas[i]);
-        ret.push(coordenadas[i+2]);
-        ret.push(coordenadas[i+1]);
+    ret.push(coordenadas[0]);
+    for (let i = 1; i < coordenadas.length - 1; i+=2) {
+        if(ret[ret.length - 1].distanceTo(coordenadas[i]) < ret[ret.length - 1].distanceTo(coordenadas[i+1])){
+            ret.push(coordenadas[i]);
+            ret.push(coordenadas[i+1]);
+        } else{
+            ret.push(coordenadas[i+1]);
+            ret.push(coordenadas[i]);
+        }
     }
+    ret.push(coordenadas[coordenadas.length - 1]);
     return ret;
 }
