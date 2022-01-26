@@ -33,8 +33,16 @@ const crearMapa = (parcela) => {
     dividirRecta(mapa, lineaArriba)
     dividirRecta(mapa, lineaAbajo);
     let polylinePath = ordenarPolypath(lineaArriba, lineaAbajo);
-    let polyline = L.polyline(polylinePath, {color: 'black'}).addTo(mapa);
-    console.log(polyline.toGeoJSON())
+    let polyline = L.polyline(polylinePath, {color: 'black'});
+    let coordenadas1 = polyline._latlngs.map(({lat, lng}) => [lat, lng]);
+    let coordenadas2 = mapaParcela._latlngs.map(({lat, lng}) => [lat, lng]);
+    var intersects = turf.lineIntersect(polyline.toGeoJSON(), mapaParcela.toGeoJSON());
+    let coordenadasGeoJSON = intersects.features.map(({geometry}) => geometry.coordinates);
+    let coordenadasFinales = coordenadasGeoJSON.map((coordenada) => L.GeoJSON.coordsToLatLng(coordenada));
+    console.log(coordenadasFinales);
+    coordenadasFinales = ordenarPolypathInterior(coordenadasFinales);
+    console.log(coordenadasFinales);
+    L.polyline(coordenadasFinales, {color: 'black'}).addTo(mapa);
 }
 
 const crearPuntoMedio = (mapa, latlng1, latlng2) => {
@@ -65,4 +73,14 @@ const ordenarPolypath = (lineaArriba, lineaAbajo) =>{
     }
     polyPath.push(lineaArriba[lineaArriba.length-1]);
     return polyPath;
+}
+
+const ordenarPolypathInterior = (coordenadas) => {
+    let ret = [];
+    for (let i = 2; i < coordenadas.length; i+=3) {
+        ret.push(coordenadas[i]);
+        ret.push(coordenadas[i+2]);
+        ret.push(coordenadas[i+1]);
+    }
+    return ret;
 }
