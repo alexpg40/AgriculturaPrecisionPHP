@@ -39,16 +39,8 @@ const crearMapa = (parcela) => {
     var intersects = turf.lineIntersect(polyline.toGeoJSON(), mapaParcela.toGeoJSON());
     let coordenadasGeoJSON = intersects.features.map(({geometry}) => geometry.coordinates);
     let coordenadasFinales = coordenadasGeoJSON.map((coordenada) => L.GeoJSON.coordsToLatLng(coordenada));
-    let puntosFinalFinales = [];
-    puntosFinalFinales.push(coordenadasFinales[0]);
-    for (let l = 1; l < coordenadasFinales.length; l++) {
-        console.log(coordenadasFinales[l-1].distanceTo(coordenadasFinales[l]))
-        if(puntosFinalFinales[puntosFinalFinales.length-1].distanceTo(coordenadasFinales[l]) > 10){
-            puntosFinalFinales.push(coordenadasFinales[l]);
-        }
-    }
-    puntosFinalFinales = ordenarPolypathInterior(puntosFinalFinales);
-    L.polyline(puntosFinalFinales, {color: 'black'}).addTo(mapa);
+    coordenadasFinales = ordenarPolypathInterior(coordenadasFinales);
+    L.polyline(coordenadasFinales, {color: 'black'}).addTo(mapa);
 }
 
 const crearPuntoMedio = (mapa, latlng1, latlng2) => {
