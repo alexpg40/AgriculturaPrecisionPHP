@@ -468,3 +468,10 @@ hr{
     width: 50%;
     margin: auto;
 }
+
+.form__dron{
+    display: flex;
+    align-items: flex-start;
+    flex-direction:column;
+    justify-content: center;
+}
