@@ -630,7 +630,6 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                             <form action="menu.php">
                                 <h2>Tus Drones</h2>
                                 <div class="botones__drones">
-                                    <input type="submit" value="Nuevo Dron">
                                     <input type="submit" value="Borrar Dron">
                                 </div>
                                 <div class="table__drones">
@@ -678,6 +677,30 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                     </div>
                                 </div>
                             </form>
+                                <div class="wrapper__nuevo__dron">
+                                    <h2>Nuevos Drones</h2>
+                                    <form action="menu.php">
+                                        <div class="form__dron">
+                                            <p>
+                                                <label for="marca">Marca/Modelo </label>
+                                                <input type="text" name="marca">
+                                            </p>
+                                            <p>
+                                                <label for="autonomia">Autonomia: </label>
+                                                <input type="text" name="autonomia">
+                                            </p>
+                                            <p>
+                                                <label for="capacidad">Capacidad </label>
+                                                <input type="text" name="capacidad">
+                                            </p>
+                                            <p>
+                                                <label for="foto">Subir Foto</label>
+                                                <input type="file" name="foto">
+                                            </p>
+                                            <input type="submit" name="crear_dron" value="Crear Dron">
+                                        </div>
+                                    </form>
+                                </div>
                         </div>
                     <?php
                 }
