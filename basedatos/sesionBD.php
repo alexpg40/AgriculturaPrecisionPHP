@@ -360,4 +360,14 @@ function recuperarTrabajo($idTrabajo){
     return array($tipoTarea, $idParcela, $idAgricultor);
 }
 
+function crearDron($marca, $autonomia, $capacidad, $urlFoto){
+    include 'conexionBD.php';
+    $instruccion = "INSERT INTO drones VALUES ()";
+    $query = mysqli_query($conexion, $instruccion);
+}
+
+function subirFotoDron(){
+
+}
+
 ?>
