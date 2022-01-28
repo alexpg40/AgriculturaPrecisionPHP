@@ -360,14 +360,18 @@ function recuperarTrabajo($idTrabajo){
     return array($tipoTarea, $idParcela, $idAgricultor);
 }
 
-function crearDron($marca, $autonomia, $capacidad, $urlFoto){
+function crearDron($marca, $autonomia, $idPiloto, $capacidad, $urlFoto){
     include 'conexionBD.php';
-    $instruccion = "INSERT INTO drones VALUES ()";
-    $query = mysqli_query($conexion, $instruccion);
+    $instruccion = "INSERT INTO dron VALUES (NULL, '$marca', '$idPiloto', '$urlFoto', '$autonomia', '$capacidad')";
+    mysqli_query($conexion, $instruccion);
+    mysqli_close($conexion);
 }
 
-function subirFotoDron(){
-
+function borrarDron($idDron){
+    include 'conexionBD.php';
+    $instruccion = "DELETE FROM dron WHERE idDron = '$idDron'";
+    mysqli_query($conexion, $instruccion);
+    mysqli_close($conexion);
 }
 
 ?>
