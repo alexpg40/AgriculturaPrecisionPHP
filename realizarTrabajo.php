@@ -116,7 +116,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
             </div>
             <div class="realizar__trabajo">
                 <h2>Dron para realizar Trabajo</h2>
-                <form action="realizarTrabajo.php">
+                <form action="menu.php">
                     <label for="dron">Dron: </label>
                     <select name="dron">
                         <?php
