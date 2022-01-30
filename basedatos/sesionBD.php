@@ -311,7 +311,7 @@ function insertarParcela($parcela, $idAgricultor){
 
 function recuperarTrabajosPorPiloto($idPiloto){
     include 'conexionBD.php';
-    $instruccion = "SELECT * FROM trabajo where idPiloto = '$idPiloto'";
+    $instruccion = "SELECT * FROM trabajo where idPiloto = '$idPiloto' ORDER BY fechaFinalizacion DESC";
     $query = mysqli_query($conexion, $instruccion);
     $nFilas = mysqli_num_rows($query);
     $trabajos = array();
@@ -370,6 +370,13 @@ function crearDron($marca, $autonomia, $idPiloto, $capacidad, $urlFoto){
 function borrarDron($idDron){
     include 'conexionBD.php';
     $instruccion = "DELETE FROM dron WHERE idDron = '$idDron'";
+    mysqli_query($conexion, $instruccion);
+    mysqli_close($conexion);
+}
+
+function terminarTrabajo($idTrabajo, $idDron){
+    include 'conexionBD.php';
+    $instruccion = "UPDATE trabajo SET fechaFinalizacion = CURDATE(), idDron = '$idDron' WHERE idTrabajo = '$idTrabajo'";
     mysqli_query($conexion, $instruccion);
     mysqli_close($conexion);
 }

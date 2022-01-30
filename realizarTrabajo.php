@@ -123,12 +123,12 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         $drones = recuperarDrones($_SESSION['idUsuario']);
                         foreach ($drones as $dron){
                             ?>
-                            <option><?=$dron[0]?>
+                            <option value=<?=$dron[4]?>><?=$dron[0]?>
                             <?php
                         }
                         ?>
                     </select>
-                    <input type="submit" name="realizarTrabajo" value="Realizar Trabajo">
+                    <button type="submit" name="realizarTrabajo" value=<?=$_GET['idTrabajo']?>>Realizar Trabajo</button>
                 </form>
             </div>
             </div>

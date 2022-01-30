@@ -39,18 +39,6 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         include 'scripts/funcionesVarias.php';
                         $parcela = leerPuntosXML($fichero);
                         insertarParcela($parcela, $_SESSION['idUsuario']);
-                    } else if (isset($_REQUEST['crear_dron'])) {
-                        if (isset($_FILES['foto_dron']['name'])) {
-                            $directorio = 'ficheros/drones/';
-                            $foto = (string) time() . $_FILES['foto_dron']['name'];
-                            $fichero = $directorio . $foto;
-                            move_uploaded_file($_FILES['foto_dron']['tmp_name'], $fichero);
-                            crearDron($_REQUEST['marca'], $_REQUEST['autonomia'], $_SESSION['idUsuario'], $_REQUEST['capacidad'], $foto);
-                        } else {
-                            crearDron($_REQUEST['marca'], $_REQUEST['autonomia'], $_SESSION['idUsuario'], $_REQUEST['capacidad'], '');
-                        }
-                    } else if(isset($_REQUEST['borrar_dron'])){
-                        borrarDron($_REQUEST['dron']);
                     }
                     ?>
                     <form action="menu.php">
@@ -260,6 +248,9 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                 <?php
                 } else if (in_array('Piloto', $roles)) {
                     $trabajos = recuperarTrabajosPorPiloto($_SESSION['idUsuario']);
+                    if(isset($_REQUEST['realizarTrabajo'])){
+                        terminarTrabajo($_REQUEST['realizarTrabajo'],$_REQUEST['dron']);
+                    }
                 ?>
                     <div class="wrapper__piloto">
                         <h1>Tus Trabajos</h1>
@@ -524,6 +515,9 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                 } else if ($_REQUEST['opcion'] == 'trabajo') {
                     if (in_array('Piloto', $roles)) {
                         $trabajos = recuperarTrabajosPorPiloto($_SESSION['idUsuario']);
+                        if(isset($_REQUEST['realizarTrabajo'])){
+                            terminarTrabajo($_REQUEST['dron'], $_REQUEST['realizarTrabajo']);
+                        }
                     ?>
                         <div class="wrapper__piloto">
                             <h1>Tus Trabajos</h1>
@@ -642,7 +636,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                             <form action="menu.php">
                                 <h2>Tus Drones</h2>
                                 <div class="botones__drones">
-                                    <input type="submit" value="Borrar Dron" name="borrar_dron">
+                                    <input type="submit" value="Borrar Dron">
                                 </div>
                                 <div class="table__drones">
                                     <div class="table__drones__header">
@@ -677,7 +671,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                                     <?= $dron[3] ?>
                                                 </div>
                                                 <div class="dron__item__imagen">
-                                                    <a href="ficheros\drones\<?= $dron[1] ?>">Ver Imagen</a>
+                                                    <a href="ficheros\drones\<?= $dron[1]?>">Ver Imagen</a>
                                                 </div>
                                                 <div class="dron__item__seleccionar">
                                                     <input type="radio" name="dron" value="<?= $dron[4] ?>">
@@ -689,31 +683,30 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                     </div>
                                 </div>
                             </form>
-                            <div class="wrapper__nuevo__dron">
-                                <h2>Nuevos Drones</h2>
-                                <form action="menu.php" enctype="multipart/form-data" method="POST">
-                                <input type="hidden" name="MAX_FILE_SIZE" value="100000">
-                                    <div class="form__dron">
-                                        <p>
-                                            <label for="marca">Marca/Modelo </label>
-                                            <input type="text" name="marca">
-                                        </p>
-                                        <p>
-                                            <label for="autonomia">Autonomia: </label>
-                                            <input type="text" name="autonomia">
-                                        </p>
-                                        <p>
-                                            <label for="capacidad">Capacidad </label>
-                                            <input type="text" name="capacidad">
-                                        </p>
-                                        <p>
-                                            <label for="foto">Subir Foto</label>
-                                            <input type="file" name="foto_dron">
-                                        </p>
-                                        <input type="submit" name="crear_dron" value="Crear Dron">
-                                    </div>
-                                </form>
-                            </div>
+                                <div class="wrapper__nuevo__dron">
+                                    <h2>Nuevos Drones</h2>
+                                    <form action="menu.php">
+                                        <div class="form__dron">
+                                            <p>
+                                                <label for="marca">Marca/Modelo </label>
+                                                <input type="text" name="marca">
+                                            </p>
+                                            <p>
+                                                <label for="autonomia">Autonomia: </label>
+                                                <input type="text" name="autonomia">
+                                            </p>
+                                            <p>
+                                                <label for="capacidad">Capacidad </label>
+                                                <input type="text" name="capacidad">
+                                            </p>
+                                            <p>
+                                                <label for="foto">Subir Foto</label>
+                                                <input type="file" name="foto">
+                                            </p>
+                                            <input type="submit" name="crear_dron" value="Crear Dron">
+                                        </div>
+                                    </form>
+                                </div>
                         </div>
                     <?php
                 }

@@ -34,7 +34,7 @@ h1{
     margin-bottom: 2vh;
 }
 
-input[type="submit"]{
+button[type="submit"]{
     background-color: #1c0d02;
     color: white;
     padding: 1vh;
