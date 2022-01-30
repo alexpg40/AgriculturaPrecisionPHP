@@ -31,11 +31,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                     if($_REQUEST['bannear'] == 'Eliminar de la Base de datos'){
                         borrarUsuario($_SESSION['editarUsuario']);
                         header('Location: menu.php');
-                    } else if ($_REQUEST['bannear'] == 'Contactar'){
-
-                    } else if ($_REQUEST['bannear'] == 'Expulsar temporalmente'){
-
-                    } 
+                    }
                 } else if (isset($_REQUEST['submit_rol'])){
                     if($_REQUEST['submit_rol'] == 'Dar rol'){
                         darRol($_SESSION['editarUsuario'], $_REQUEST['rol']);
@@ -109,13 +105,14 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                     $_SESSION['editarUsuario'] = $_REQUEST['idUsuario'];
                     $usuario = recuperarUsuario($_REQUEST['idUsuario']);
                     ?>
+                    <h2>Editar Atributos</h2>
                     <div class="wrapper__usuario-editar">
                         <div class="wrapper__usuario-icon">
                             <img src="img/loginProfile.png">
                         </div>
                         <form action="editarUsuario.php" class="wrapper__usuario-form">
                             <p>
-                                <label for="nombre">Nombre</label>
+                                <label for="nombre">Nombre: </label>
                                 <input type="text" name=nombre value="<?= $usuario[1] ?>">
                             </p>
                             <p>
@@ -133,12 +130,9 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                             <input class="wrapper__usuario-form-submit" type="submit" name="editar" value="Editar Usuario">
                         </form>
                     </div>
-                    <form class="wrapper__usuario-ban">
-                        <input type="submit" name="bannear" value="Eliminar de la Base de datos">
-                        <input type="submit" name="bannear" value="Expulsar temporalmente">
-                        <input type="submit" name="bannear" value="Contactar">
-                    </form>
                 </div>
+                <div class="gestion_roles">
+                <h2>Gestion de roles</h2>
                 <div class="wrapper__roles">
                     <div class="wrapper__roles-dar">
                         <h2 class="wrapper__roles-dar-title">Dar roles al usuario</h2>
@@ -156,6 +150,9 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         <input type="submit" name="submit_rol" value="Dar rol">
                         </form>
                     </div>
+                    <form class="wrapper__usuario-ban">
+                        <input type="submit" name="bannear" value="Eliminar de la Base de datos">
+                    </form>
                     <div class="wrapper__roles-quitar">
                         <h2 class="wrapper__roles-dar-title">Quitar roles al usuario</h2>
                         <form class="wrapper__roles-form">
@@ -172,6 +169,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         <input type="submit" name="submit_rol" value="Quitar rol">
                         </form>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

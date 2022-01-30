@@ -106,6 +106,16 @@ button, input[type="submit"], input[type="reset"] {
     flex-direction: column;
     height: 20vh;
     font-size: 20px;
+    
+}
+
+.wrapper__usuario-form input{
+    font-size:20px;
+    margin-top: 1vh;
+}
+
+.wrapper__usuario-form label{
+    font-size: 25px;
 }
 
 .wrapper__usuario-form input[type="submit"]{
@@ -121,18 +131,25 @@ button, input[type="submit"], input[type="reset"] {
     justify-content: center;
     align-items: center;
     width: 50%;
+    box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 4.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 5.5px 6px rgba(0, 0, 0, 0.06),
+    0 6.3px 9.9px rgba(0, 0, 0, 0.072),
+    0 9.8px 14.4px rgba(0, 0, 0, 0.086),
+    0 9px 20px rgba(0, 0, 0, 0.12)
+  ;
+    padding: 2vh;
     justify-content: space-around;
 }
 
 .wrapper__usuario-ban{
-    width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
 .wrapper__usuario-ban input{
-    width: 40%;
     padding: 10px;
     background-color: black;
     color: white;
@@ -153,10 +170,20 @@ button, input[type="submit"], input[type="reset"] {
 }
 
 .wrapper__roles{
+    width: 50%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 30vh;
+    box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 4.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 5.5px 6px rgba(0, 0, 0, 0.06),
+    0 6.3px 9.9px rgba(0, 0, 0, 0.072),
+    0 9.8px 14.4px rgba(0, 0, 0, 0.086),
+    0 9px 20px rgba(0, 0, 0, 0.12)
+  ;
+  padding: 2vh;
 }
 
 .wrapper__roles-form{
@@ -175,4 +202,10 @@ button, input[type="submit"], input[type="reset"] {
 .wrapper__roles-form input{
     text-align: center;
     margin: 5px;
+}
+
+.gestion_roles{
+    display: flex;
+    justify-content:space-around;
+    align-items:center;
 }
