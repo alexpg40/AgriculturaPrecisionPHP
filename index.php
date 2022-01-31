@@ -26,7 +26,7 @@ session_start();
                         <label for="usuario">Usuario: </label><input class="wrapper__login-form-input" type="text" name="usuario" id="usuario">
                     </p>
                     <p>
-                        <label for="contrasena">Contraseña: </label><input class="wrapper__login-form-input" type="text" name="contrasena" id="contrasena">
+                        <label for="contrasena">Contraseña: </label><input class="wrapper__login-form-input" type="password" name="contrasena" id="contrasena">
                     </p>
                     <p class="wrapper__login-form-buttons">
                         <input class="wrapper__login-form-button" type="submit" name="iniciar" value="Iniciar Sesion">
@@ -46,7 +46,7 @@ session_start();
                         <label for="usuario">Usuario: </label><input class="wrapper__login-form-input" type="text" name="usuario" id="usuario">
                     </p>
                     <p>
-                        <label for="contrasena">Contraseña: </label><input class="wrapper__login-form-input" type="text" name="contrasena" id="contrasena">
+                        <label for="contrasena">Contraseña: </label><input class="wrapper__login-form-input" type="password" name="contrasena" id="contrasena">
                     </p>
                     <p class="wrapper__login-form-buttons">
                         <input class="wrapper__login-form-button" type="submit" name="iniciar" value="Iniciar Sesion">
