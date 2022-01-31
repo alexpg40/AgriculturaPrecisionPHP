@@ -39,6 +39,17 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         include 'scripts/funcionesVarias.php';
                         $parcela = leerPuntosXML($fichero);
                         insertarParcela($parcela, $_SESSION['idUsuario']);
+                    } else if(isset($_REQUEST['crear_dron'])){
+                        if(isset($_FILES['foto']['name'])){
+                            $directorio = 'ficheros/drones/';
+                            $archivo = (string) time() . $_FILES['foto']['name'];
+                            $fichero = $directorio . $archivo;
+                            print($_FILES['foto']['tmp_name']);
+                            move_uploaded_file($_FILES['foto']['tmp_name'], $fichero);
+                            crearDron($_REQUEST['marca'], $_REQUEST['autonomia'], $_SESSION['idUsuario'], $_REQUEST['capacidad'], $archivo);
+                        }else{
+                            crearDron($_REQUEST['marca'], $_REQUEST['autonomia'], $_SESSION['idUsuario'], $_REQUEST['capacidad'], '');
+                        }
                     }
                     ?>
                     <form action="menu.php">
@@ -685,14 +696,15 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                             </form>
                                 <div class="wrapper__nuevo__dron">
                                     <h2>Nuevos Drones</h2>
-                                    <form action="menu.php">
+                                    <form method="POST" action="menu.php" enctype="multipart/form-data">
+                                    <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
                                         <div class="form__dron">
                                             <p>
                                                 <label for="marca">Marca/Modelo </label>
                                                 <input type="text" name="marca">
                                             </p>
                                             <p>
-                                                <label for="autonomia">Autonomia: </label>
+                                                <label for="autonomia">Autonomia </label>
                                                 <input type="text" name="autonomia">
                                             </p>
                                             <p>
@@ -700,7 +712,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                                                 <input type="text" name="capacidad">
                                             </p>
                                             <p>
-                                                <label for="foto">Subir Foto</label>
+                                                <label for="foto">Subir Foto </label>
                                                 <input type="file" name="foto">
                                             </p>
                                             <input type="submit" name="crear_dron" value="Crear Dron">
