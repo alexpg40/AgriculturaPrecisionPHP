@@ -339,7 +339,7 @@ function recuperarDrones($idPiloto){
     for ($i=0; $i < $nFilas; $i++) {
         $resultado = mysqli_fetch_array($query);
         $marca = $resultado['marca'];
-        $imagen  = $resultado['imagen'];
+        $imagen  = $resultado['url'];
         $autonomia = $resultado['autonomia'];
         $tanque = $resultado['capacidad_tanque'];
         $idDron = $resultado['idDron'];
