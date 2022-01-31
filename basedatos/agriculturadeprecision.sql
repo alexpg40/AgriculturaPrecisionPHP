@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 06-01-2022 a las 14:23:40
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.1
+-- Host: localhost
+-- Generation Time: Jan 31, 2022 at 01:31 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,33 +18,49 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `agriculturadeprecision`
+-- Database: `agriculturadeprecision`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `dron`
+-- Table structure for table `dron`
 --
 
 CREATE TABLE `dron` (
   `idDron` int(11) NOT NULL,
   `marca` varchar(20) NOT NULL,
-  `idPiloto` int(11) NOT NULL
+  `idPiloto` int(11) NOT NULL,
+  `url` varchar(60) NOT NULL,
+  `autonomia` int(11) NOT NULL,
+  `capacidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `dron`
+-- Dumping data for table `dron`
 --
 
-INSERT INTO `dron` (`idDron`, `marca`, `idPiloto`) VALUES
-(1, 'DJI T30', 4),
-(2, 'DJI Agras T16', 4);
+INSERT INTO `dron` (`idDron`, `marca`, `idPiloto`, `url`, `autonomia`, `capacidad`) VALUES
+(1, 'DJI T30', 4, '', 0, 0),
+(2, 'DJI Agras T16', 4, '', 0, 0),
+(3, 'Dron', 5, '', 10, 10),
+(4, 'Dron 2', 5, '', 10, 10),
+(5, 'Dron 3', 5, '', 20, 20),
+(6, 'Dron 4', 5, '', 10, 20),
+(7, 'Dron 6', 5, '1643587293recintos.gml', 12, 12),
+(8, 'Dron 7', 5, '1643587435ciberseguridad-drones.jpg', 10, 10),
+(9, 'Dron 8', 5, '1643587771ciberseguridad-drones.jpg', 20, 20),
+(10, 'Dron 9', 5, '1643587870ciberseguridad-drones.jpg', 30, 30),
+(11, 'Dron 10', 5, '1643587926ciberseguridad-drones.jpg', 30, 30),
+(12, 'Dron 11', 5, '1643588032ciberseguridad-drones.jpg', 20, 20),
+(13, 'Dron 12', 5, '1643588130ciberseguridad-drones.jpg', 20, 20),
+(14, 'Dron 12', 5, '1643588502ciberseguridad-drones.jpg', 20, 20),
+(15, 'Dron 13', 5, '1643588595ciberseguridad-drones.jpg', 20, 20);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `parcela`
+-- Table structure for table `parcela`
 --
 
 CREATE TABLE `parcela` (
@@ -56,17 +72,19 @@ CREATE TABLE `parcela` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `parcela`
+-- Dumping data for table `parcela`
 --
 
 INSERT INTO `parcela` (`idParcela`, `idAgricultor`, `area`, `municipio`, `provincia`) VALUES
 (44, 2, 16953.968600639942, 35, 39),
-(45, 2, 16587.393946652588, 35, 39);
+(45, 2, 16587.393946652588, 35, 39),
+(46, 2, 16587.393946652588, 35, 39),
+(47, 5, 16587.393946652588, 35, 39);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `punto`
+-- Table structure for table `punto`
 --
 
 CREATE TABLE `punto` (
@@ -77,7 +95,7 @@ CREATE TABLE `punto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `punto`
+-- Dumping data for table `punto`
 --
 
 INSERT INTO `punto` (`idPunto`, `idParcela`, `Lon`, `Lat`) VALUES
@@ -269,12 +287,182 @@ INSERT INTO `punto` (`idPunto`, `idParcela`, `Lon`, `Lat`) VALUES
 (1206, 45, 43.41342045791345, -3.4083900123247513),
 (1207, 45, 43.4133485554292, -3.40851097241482),
 (1208, 45, 43.413333989356985, -3.408556805502284),
-(1209, 45, 43.4133334847664, -3.4085583921966487);
+(1209, 45, 43.4133334847664, -3.4085583921966487),
+(1210, 46, 43.4133334847664, -3.4085583921966487),
+(1211, 46, 43.413334514902346, -3.4085592957658646),
+(1212, 46, 43.41335023264811, -3.4085716297371165),
+(1213, 46, 43.413427471052245, -3.4086433017190285),
+(1214, 46, 43.41347536944078, -3.4086840721366745),
+(1215, 46, 43.41348635392554, -3.408692063443635),
+(1216, 46, 43.41350745033889, -3.4087074123856373),
+(1217, 46, 43.41353182910573, -3.4087251484938057),
+(1218, 46, 43.413590055675954, -3.4087675097967693),
+(1219, 46, 43.41364047869388, -3.4088041940363762),
+(1220, 46, 43.41378869002914, -3.408919071378951),
+(1221, 46, 43.41384930879469, -3.4089683837946283),
+(1222, 46, 43.41388649343395, -3.408993211831493),
+(1223, 46, 43.41408110866434, -3.409123154807726),
+(1224, 46, 43.41409356584957, -3.409117671366344),
+(1225, 46, 43.414113990872444, -3.409130215723379),
+(1226, 46, 43.414138854113304, -3.409145486713677),
+(1227, 46, 43.414199564241585, -3.4091827744503482),
+(1228, 46, 43.41421524510697, -3.409222887726748),
+(1229, 46, 43.41422237056328, -3.409190944291857),
+(1230, 46, 43.414222595198304, -3.409189938463416),
+(1231, 46, 43.41422384577833, -3.409184335999002),
+(1232, 46, 43.41435550872121, -3.4092445080090763),
+(1233, 46, 43.4144261547581, -3.409274389495664),
+(1234, 46, 43.414679738357194, -3.409381648525992),
+(1235, 46, 43.41474067060594, -3.409407658411274),
+(1236, 46, 43.414763393946785, -3.4094173587883927),
+(1237, 46, 43.4148750484474, -3.4094841390913206),
+(1238, 46, 43.414982980544586, -3.4095486931606347),
+(1239, 46, 43.414985657724635, -3.4089730818516366),
+(1240, 46, 43.41496953094196, -3.408923935397651),
+(1241, 46, 43.41495024166705, -3.4088857449299534),
+(1242, 46, 43.41470046931954, -3.408391226862593),
+(1243, 46, 43.414662258735284, -3.408273990014135),
+(1244, 46, 43.41464011123121, -3.4081708255437513),
+(1245, 46, 43.41464824670691, -3.4081103551379055),
+(1246, 46, 43.4146637540669, -3.4080530220786045),
+(1247, 46, 43.41466366018958, -3.4080479510268837),
+(1248, 46, 43.41466348836055, -3.4080386102334326),
+(1249, 46, 43.414663226006965, -3.408024361835382),
+(1250, 46, 43.41466282367559, -3.4080108954689434),
+(1251, 46, 43.414641086046615, -3.407970852600536),
+(1252, 46, 43.41463219284681, -3.4079648637303626),
+(1253, 46, 43.414610704160374, -3.4079559495758094),
+(1254, 46, 43.414580427047945, -3.407962168948333),
+(1255, 46, 43.41455354795924, -3.4079687805939485),
+(1256, 46, 43.41454700169246, -3.4079681142326064),
+(1257, 46, 43.41454190298047, -3.4079675643797254),
+(1258, 46, 43.41453925429891, -3.407968414304758),
+(1259, 46, 43.41453301816257, -3.4079704142269738),
+(1260, 46, 43.41451489229589, -3.4079617490149587),
+(1261, 46, 43.41450250635685, -3.4079558280382054),
+(1262, 46, 43.41446369479007, -3.407903857720873),
+(1263, 46, 43.41443056363944, -3.407855427919652),
+(1264, 46, 43.41421682928677, -3.4075429974894527),
+(1265, 46, 43.41419252008974, -3.4075097196554975),
+(1266, 46, 43.41418169150839, -3.4074948828478093),
+(1267, 46, 43.414168294711764, -3.4074765256405795),
+(1268, 46, 43.414149525114865, -3.4074537335681163),
+(1269, 46, 43.41413082424958, -3.4074310093890734),
+(1270, 46, 43.414120913486684, -3.407421970344154),
+(1271, 46, 43.414097462596594, -3.4074005814023662),
+(1272, 46, 43.41408635238328, -3.407395638593771),
+(1273, 46, 43.414085966815705, -3.4073954659265557),
+(1274, 46, 43.41408536918597, -3.407395197705638),
+(1275, 46, 43.414080048353526, -3.407392834846993),
+(1276, 46, 43.41406432725499, -3.4073914350690804),
+(1277, 46, 43.41405838029435, -3.4073909053327682),
+(1278, 46, 43.41403673067535, -3.4073984364732173),
+(1279, 46, 43.41396438311201, -3.407487318179746),
+(1280, 46, 43.41391773446531, -3.4075600823237053),
+(1281, 46, 43.413869358308276, -3.4076279631705857),
+(1282, 46, 43.41384463923615, -3.407666938184466),
+(1283, 46, 43.41382637925901, -3.4076927284638723),
+(1284, 46, 43.41374193577047, -3.40782672325234),
+(1285, 46, 43.4137365998506, -3.4078367211870386),
+(1286, 46, 43.41369137780391, -3.407921450498489),
+(1287, 46, 43.413570326351085, -3.4081326392670057),
+(1288, 46, 43.413485322951395, -3.4082808899972377),
+(1289, 46, 43.413460882996674, -3.408322004911125),
+(1290, 46, 43.41345354966915, -3.408334341396948),
+(1291, 46, 43.41342045791345, -3.4083900123247513),
+(1292, 46, 43.4133485554292, -3.40851097241482),
+(1293, 46, 43.413333989356985, -3.408556805502284),
+(1294, 46, 43.4133334847664, -3.4085583921966487),
+(1295, 47, 43.4133334847664, -3.4085583921966487),
+(1296, 47, 43.413334514902346, -3.4085592957658646),
+(1297, 47, 43.41335023264811, -3.4085716297371165),
+(1298, 47, 43.413427471052245, -3.4086433017190285),
+(1299, 47, 43.41347536944078, -3.4086840721366745),
+(1300, 47, 43.41348635392554, -3.408692063443635),
+(1301, 47, 43.41350745033889, -3.4087074123856373),
+(1302, 47, 43.41353182910573, -3.4087251484938057),
+(1303, 47, 43.413590055675954, -3.4087675097967693),
+(1304, 47, 43.41364047869388, -3.4088041940363762),
+(1305, 47, 43.41378869002914, -3.408919071378951),
+(1306, 47, 43.41384930879469, -3.4089683837946283),
+(1307, 47, 43.41388649343395, -3.408993211831493),
+(1308, 47, 43.41408110866434, -3.409123154807726),
+(1309, 47, 43.41409356584957, -3.409117671366344),
+(1310, 47, 43.414113990872444, -3.409130215723379),
+(1311, 47, 43.414138854113304, -3.409145486713677),
+(1312, 47, 43.414199564241585, -3.4091827744503482),
+(1313, 47, 43.41421524510697, -3.409222887726748),
+(1314, 47, 43.41422237056328, -3.409190944291857),
+(1315, 47, 43.414222595198304, -3.409189938463416),
+(1316, 47, 43.41422384577833, -3.409184335999002),
+(1317, 47, 43.41435550872121, -3.4092445080090763),
+(1318, 47, 43.4144261547581, -3.409274389495664),
+(1319, 47, 43.414679738357194, -3.409381648525992),
+(1320, 47, 43.41474067060594, -3.409407658411274),
+(1321, 47, 43.414763393946785, -3.4094173587883927),
+(1322, 47, 43.4148750484474, -3.4094841390913206),
+(1323, 47, 43.414982980544586, -3.4095486931606347),
+(1324, 47, 43.414985657724635, -3.4089730818516366),
+(1325, 47, 43.41496953094196, -3.408923935397651),
+(1326, 47, 43.41495024166705, -3.4088857449299534),
+(1327, 47, 43.41470046931954, -3.408391226862593),
+(1328, 47, 43.414662258735284, -3.408273990014135),
+(1329, 47, 43.41464011123121, -3.4081708255437513),
+(1330, 47, 43.41464824670691, -3.4081103551379055),
+(1331, 47, 43.4146637540669, -3.4080530220786045),
+(1332, 47, 43.41466366018958, -3.4080479510268837),
+(1333, 47, 43.41466348836055, -3.4080386102334326),
+(1334, 47, 43.414663226006965, -3.408024361835382),
+(1335, 47, 43.41466282367559, -3.4080108954689434),
+(1336, 47, 43.414641086046615, -3.407970852600536),
+(1337, 47, 43.41463219284681, -3.4079648637303626),
+(1338, 47, 43.414610704160374, -3.4079559495758094),
+(1339, 47, 43.414580427047945, -3.407962168948333),
+(1340, 47, 43.41455354795924, -3.4079687805939485),
+(1341, 47, 43.41454700169246, -3.4079681142326064),
+(1342, 47, 43.41454190298047, -3.4079675643797254),
+(1343, 47, 43.41453925429891, -3.407968414304758),
+(1344, 47, 43.41453301816257, -3.4079704142269738),
+(1345, 47, 43.41451489229589, -3.4079617490149587),
+(1346, 47, 43.41450250635685, -3.4079558280382054),
+(1347, 47, 43.41446369479007, -3.407903857720873),
+(1348, 47, 43.41443056363944, -3.407855427919652),
+(1349, 47, 43.41421682928677, -3.4075429974894527),
+(1350, 47, 43.41419252008974, -3.4075097196554975),
+(1351, 47, 43.41418169150839, -3.4074948828478093),
+(1352, 47, 43.414168294711764, -3.4074765256405795),
+(1353, 47, 43.414149525114865, -3.4074537335681163),
+(1354, 47, 43.41413082424958, -3.4074310093890734),
+(1355, 47, 43.414120913486684, -3.407421970344154),
+(1356, 47, 43.414097462596594, -3.4074005814023662),
+(1357, 47, 43.41408635238328, -3.407395638593771),
+(1358, 47, 43.414085966815705, -3.4073954659265557),
+(1359, 47, 43.41408536918597, -3.407395197705638),
+(1360, 47, 43.414080048353526, -3.407392834846993),
+(1361, 47, 43.41406432725499, -3.4073914350690804),
+(1362, 47, 43.41405838029435, -3.4073909053327682),
+(1363, 47, 43.41403673067535, -3.4073984364732173),
+(1364, 47, 43.41396438311201, -3.407487318179746),
+(1365, 47, 43.41391773446531, -3.4075600823237053),
+(1366, 47, 43.413869358308276, -3.4076279631705857),
+(1367, 47, 43.41384463923615, -3.407666938184466),
+(1368, 47, 43.41382637925901, -3.4076927284638723),
+(1369, 47, 43.41374193577047, -3.40782672325234),
+(1370, 47, 43.4137365998506, -3.4078367211870386),
+(1371, 47, 43.41369137780391, -3.407921450498489),
+(1372, 47, 43.413570326351085, -3.4081326392670057),
+(1373, 47, 43.413485322951395, -3.4082808899972377),
+(1374, 47, 43.413460882996674, -3.408322004911125),
+(1375, 47, 43.41345354966915, -3.408334341396948),
+(1376, 47, 43.41342045791345, -3.4083900123247513),
+(1377, 47, 43.4133485554292, -3.40851097241482),
+(1378, 47, 43.413333989356985, -3.408556805502284),
+(1379, 47, 43.4133334847664, -3.4085583921966487);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `rol`
+-- Table structure for table `rol`
 --
 
 CREATE TABLE `rol` (
@@ -283,7 +471,7 @@ CREATE TABLE `rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `rol`
+-- Dumping data for table `rol`
 --
 
 INSERT INTO `rol` (`idRol`, `nombre_rol`) VALUES
@@ -294,7 +482,7 @@ INSERT INTO `rol` (`idRol`, `nombre_rol`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `trabajo`
+-- Table structure for table `trabajo`
 --
 
 CREATE TABLE `trabajo` (
@@ -303,21 +491,26 @@ CREATE TABLE `trabajo` (
   `idParcela` int(11) NOT NULL,
   `idPiloto` int(11) NOT NULL,
   `idAgricultor` int(11) NOT NULL,
+  `idDron` int(11) DEFAULT NULL,
   `fechaFinalizacion` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `trabajo`
+-- Dumping data for table `trabajo`
 --
 
-INSERT INTO `trabajo` (`idTrabajo`, `tipoTarea`, `idParcela`, `idPiloto`, `idAgricultor`, `fechaFinalizacion`) VALUES
-(53, 'Abonar', 44, 4, 2, '0000-00-00'),
-(54, 'Abonar', 44, 4, 2, '0000-00-00');
+INSERT INTO `trabajo` (`idTrabajo`, `tipoTarea`, `idParcela`, `idPiloto`, `idAgricultor`, `idDron`, `fechaFinalizacion`) VALUES
+(53, 'Abonar', 44, 4, 2, NULL, '2022-01-06'),
+(54, 'Abonar', 44, 4, 2, 1, '2022-01-30'),
+(55, 'Abonar', 45, 4, 2, NULL, '0000-00-00'),
+(56, 'Abonar', 45, 4, 2, NULL, '0000-00-00'),
+(57, 'Fumigar', 46, 4, 2, NULL, '0000-00-00'),
+(58, 'Fumigar', 47, 5, 5, NULL, '0000-00-00');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Table structure for table `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -325,23 +518,25 @@ CREATE TABLE `usuario` (
   `nombre` varchar(20) NOT NULL,
   `apellido` varchar(20) NOT NULL,
   `dni` char(9) NOT NULL,
-  `contrasena` varchar(20) NOT NULL
+  `contrasena` varchar(20) NOT NULL,
+  `email` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `usuario`
+-- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `dni`, `contrasena`) VALUES
-(1, 'Administrador', '', '12345678A', 'admin'),
-(2, 'Agricultor1', 'Agricultor1', '12312312A', ''),
-(3, 'Agricultor2', 'Agricultor2', '12312312B', 'Agricultor2'),
-(4, 'Piloto1', '', '', '');
+INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `dni`, `contrasena`, `email`) VALUES
+(1, 'Administrador', '', '12345678A', 'admin', ''),
+(2, 'Agricultor1', 'Agricultor1', '12312312A', '', ''),
+(3, 'Agricultor2', 'Agricultor2', '12312312B', 'Agricultor2', ''),
+(4, 'Piloto1', '', '', '', ''),
+(5, 'UsuarioPrueba', 'UsuarioPrueba', '72269647J', 'Contraseña.1', 'aperez21@121asd.com');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario_rol`
+-- Table structure for table `usuario_rol`
 --
 
 CREATE TABLE `usuario_rol` (
@@ -350,139 +545,143 @@ CREATE TABLE `usuario_rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `usuario_rol`
+-- Dumping data for table `usuario_rol`
 --
 
 INSERT INTO `usuario_rol` (`idUsuario`, `idRol`) VALUES
 (1, 1),
 (2, 2),
-(4, 3);
+(4, 3),
+(5, 2),
+(5, 3);
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `dron`
+-- Indexes for table `dron`
 --
 ALTER TABLE `dron`
   ADD PRIMARY KEY (`idDron`),
   ADD KEY `FK_idPiloto_Dron` (`idPiloto`);
 
 --
--- Indices de la tabla `parcela`
+-- Indexes for table `parcela`
 --
 ALTER TABLE `parcela`
   ADD PRIMARY KEY (`idParcela`),
   ADD KEY `FK_idAgricultor` (`idAgricultor`);
 
 --
--- Indices de la tabla `punto`
+-- Indexes for table `punto`
 --
 ALTER TABLE `punto`
   ADD PRIMARY KEY (`idPunto`),
   ADD KEY `FK_idParcela_Punto` (`idParcela`);
 
 --
--- Indices de la tabla `rol`
+-- Indexes for table `rol`
 --
 ALTER TABLE `rol`
   ADD PRIMARY KEY (`idRol`);
 
 --
--- Indices de la tabla `trabajo`
+-- Indexes for table `trabajo`
 --
 ALTER TABLE `trabajo`
   ADD PRIMARY KEY (`idTrabajo`),
   ADD KEY `FK_idPiloto_Trabajo` (`idPiloto`),
   ADD KEY `FK_idParcela_Trabajo2` (`idParcela`),
-  ADD KEY `FK_idAgricultor_Trabajo` (`idAgricultor`);
+  ADD KEY `FK_idAgricultor_Trabajo` (`idAgricultor`),
+  ADD KEY `fk_idDon_Trabajo` (`idDron`);
 
 --
--- Indices de la tabla `usuario`
+-- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`idUsuario`);
 
 --
--- Indices de la tabla `usuario_rol`
+-- Indexes for table `usuario_rol`
 --
 ALTER TABLE `usuario_rol`
   ADD PRIMARY KEY (`idUsuario`,`idRol`),
   ADD KEY `FOREING_idRol` (`idRol`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `dron`
+-- AUTO_INCREMENT for table `dron`
 --
 ALTER TABLE `dron`
-  MODIFY `idDron` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idDron` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT de la tabla `parcela`
+-- AUTO_INCREMENT for table `parcela`
 --
 ALTER TABLE `parcela`
-  MODIFY `idParcela` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `idParcela` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
--- AUTO_INCREMENT de la tabla `punto`
+-- AUTO_INCREMENT for table `punto`
 --
 ALTER TABLE `punto`
-  MODIFY `idPunto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1210;
+  MODIFY `idPunto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1380;
 
 --
--- AUTO_INCREMENT de la tabla `rol`
+-- AUTO_INCREMENT for table `rol`
 --
 ALTER TABLE `rol`
   MODIFY `idRol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `trabajo`
+-- AUTO_INCREMENT for table `trabajo`
 --
 ALTER TABLE `trabajo`
-  MODIFY `idTrabajo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `idTrabajo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
--- AUTO_INCREMENT de la tabla `usuario`
+-- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `dron`
+-- Constraints for table `dron`
 --
 ALTER TABLE `dron`
   ADD CONSTRAINT `FK_idPiloto_Dron` FOREIGN KEY (`idPiloto`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `parcela`
+-- Constraints for table `parcela`
 --
 ALTER TABLE `parcela`
   ADD CONSTRAINT `FK_idAgricultor` FOREIGN KEY (`idAgricultor`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `punto`
+-- Constraints for table `punto`
 --
 ALTER TABLE `punto`
   ADD CONSTRAINT `FK_idParcela_Punto` FOREIGN KEY (`idParcela`) REFERENCES `parcela` (`idParcela`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `trabajo`
+-- Constraints for table `trabajo`
 --
 ALTER TABLE `trabajo`
-  ADD CONSTRAINT `FK_idAgricultor_Trabajo` FOREIGN KEY (`idAgricultor`) REFERENCES `usuario` (`idUsuario`),
+  ADD CONSTRAINT `FK_idAgricultor_Trabajo` FOREIGN KEY (`idAgricultor`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_idParcela_Trabajo2` FOREIGN KEY (`idParcela`) REFERENCES `parcela` (`idParcela`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_idPiloto_Trabajo` FOREIGN KEY (`idPiloto`) REFERENCES `usuario` (`idUsuario`);
+  ADD CONSTRAINT `FK_idPiloto_Trabajo` FOREIGN KEY (`idPiloto`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_idDon_Trabajo` FOREIGN KEY (`idDron`) REFERENCES `dron` (`idDron`);
 
 --
--- Filtros para la tabla `usuario_rol`
+-- Constraints for table `usuario_rol`
 --
 ALTER TABLE `usuario_rol`
   ADD CONSTRAINT `FOREING_idRol` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`) ON DELETE CASCADE ON UPDATE CASCADE,
