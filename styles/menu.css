@@ -409,7 +409,9 @@ hr{
     margin-top: 1vh;
     padding: 1vh;
 }
-
+.table__drones{
+    margin-bottom: 10vh;
+}
 .dron__item{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -436,10 +438,15 @@ hr{
     background-color: #1c0d02;
     color: white;
     padding: 1vh;
+
+}
+.wrapper__drones{
+    height:80vh;
 }
 
 .table__drones__items{
-    height: 35vh;
+    height: 20vh;
+    overflow: auto;
 }
 
 .form__dron input[type="submit"]{
