@@ -51,6 +51,8 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                         }
                     } else if(isset($_REQUEST['realizarTrabajo'])){
                         terminarTrabajo($_REQUEST['realizarTrabajo'],$_REQUEST['dron']);
+                    } else if (isset($_REQUEST['borrar_dron'])){
+                        borrarDron($_REQUEST['dron']);
                     }
                     ?>
                     <form action="menu.php">
@@ -648,7 +650,7 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                             <form action="menu.php">
                                 <h2>Tus Drones</h2>
                                 <div class="botones__drones">
-                                    <input type="submit" value="Borrar Dron">
+                                    <input type="submit" name="borrar_dron" value="Borrar Dron">
                                 </div>
                                 <div class="table__drones">
                                     <div class="table__drones__header">
