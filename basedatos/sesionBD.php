@@ -341,7 +341,7 @@ function recuperarDrones($idPiloto){
         $marca = $resultado['marca'];
         $imagen  = $resultado['url'];
         $autonomia = $resultado['autonomia'];
-        $tanque = $resultado['capacidad_tanque'];
+        $tanque = $resultado['capacidad'];
         $idDron = $resultado['idDron'];
         array_push($drones, array($marca, $imagen, $autonomia, $tanque, $idDron));
     }

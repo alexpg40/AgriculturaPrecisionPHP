@@ -44,12 +44,13 @@ $roles = recuperarRoles($_SESSION['idUsuario']);
                             $directorio = 'ficheros/drones/';
                             $archivo = (string) time() . $_FILES['foto']['name'];
                             $fichero = $directorio . $archivo;
-                            print($_FILES['foto']['tmp_name']);
                             move_uploaded_file($_FILES['foto']['tmp_name'], $fichero);
                             crearDron($_REQUEST['marca'], $_REQUEST['autonomia'], $_SESSION['idUsuario'], $_REQUEST['capacidad'], $archivo);
                         }else{
                             crearDron($_REQUEST['marca'], $_REQUEST['autonomia'], $_SESSION['idUsuario'], $_REQUEST['capacidad'], '');
                         }
+                    } else if(isset($_REQUEST['realizarTrabajo'])){
+                        terminarTrabajo($_REQUEST['realizarTrabajo'],$_REQUEST['dron']);
                     }
                     ?>
                     <form action="menu.php">
