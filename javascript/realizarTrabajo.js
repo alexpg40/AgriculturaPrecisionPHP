@@ -64,7 +64,14 @@ const crearMapa = (parcela) => {
     let coordenadasFinales = coordenadasGeoJSON.map((coordenada) => L.GeoJSON.coordsToLatLng(coordenada));
 
     //Ordeno las coordenadas para dibujar el polyline de la parcela
+
+    coordenadasFinales = quitarPuntosMaliciosos(coordenadasFinales);
+
     coordenadasFinales = ordenarPolypathInterior(coordenadasFinales);
+
+    console.log(coordenadasFinales);
+
+    coordenadasFinales.sort((a, b) => a.lng < b.lng)
 
     //Dibujo el polyline de la parcela en el mapa
     L.polyline(coordenadasFinales, {color: 'black'}).addTo(mapa);
@@ -117,5 +124,23 @@ const ordenarPolypathInterior = (coordenadas) => {
         }
     }
     ret.push(coordenadas[coordenadas.length - 1]);
+    return ret;
+}
+
+const quitarPuntosMaliciosos = (coordenadas) => {
+    let ret = [];
+    ret.push(coordenadas[0]);
+    for (let i = 1; i < coordenadas.length -1; i+=2) {
+        const coord = coordenadas[i];
+        let coordsIguales = coordenadas.filter(({lng})=>lng === coord.lng);
+        if(coordsIguales.length >= 2) {
+            if(!ret.includes(coordsIguales[0])){
+                ret.push(coordsIguales[0]);
+            }
+            if(!ret.includes(coordsIguales[1])){
+                ret.push(coordsIguales[1]);
+            }
+        }
+    }
     return ret;
 }
