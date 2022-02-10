@@ -52,7 +52,7 @@ const crearMapa = (parcela) => {
 
     //Polyline de la ruta en el cuadrado 
     let polylinePath = ordenarPolypath(lineaArriba, lineaAbajo);
-    let polyline = L.polyline(polylinePath, {color: 'white'});
+    let polyline = L.polyline(polylinePath, {color: 'white'}).addTo(mapa);
 
     //Consigo los puntos de interseccion de la parcela con el polyline del cuadrado
     var intersects = turf.lineIntersect(polyline.toGeoJSON(), mapaParcela.toGeoJSON());
@@ -69,12 +69,28 @@ const crearMapa = (parcela) => {
 
     coordenadasFinales = ordenarPolypathInterior(coordenadasFinales);
 
-    console.log(coordenadasFinales);
-
     coordenadasFinales.sort((a, b) => a.lng < b.lng)
 
+    let poligono = turf.transformScale(mapaParcela.toGeoJSON(), 0.95);
+
+    let coordenadasReducidas = poligono.geometry.coordinates[0].map((coordenada) => L.GeoJSON.coordsToLatLng(coordenada));
+
+    let intersecciones = turf.lineIntersect(polyline.toGeoJSON(), poligono)
+
+    let coordenadasIntereseccion = intersecciones.features.map(({geometry}) => geometry.coordinates);
+
+    let coordenadasIntereseccionConvertidas = coordenadasIntereseccion.map((coordenada) => L.GeoJSON.coordsToLatLng(coordenada));
+
+    coordenadasIntereseccionConvertidas.sort((a, b)=> a - b);
+
+    coordenadasIntereseccionConvertidas = ordenarTrazaDron(coordenadasIntereseccionConvertidas);
+
+    L.polyline(coordenadasIntereseccionConvertidas, {color: 'black'}).addTo(mapa);
+
+    let mapaReducido = L.polygon(coordenadasReducidas, { color: 'orange' }).addTo(mapa)
+
     //Dibujo el polyline de la parcela en el mapa
-    L.polyline(coordenadasFinales, {color: 'black'}).addTo(mapa);
+    L.polyline(coordenadasFinales, {color: 'black'})
 }
 
 //Consigo el punto medio de una recta
@@ -140,6 +156,22 @@ const quitarPuntosMaliciosos = (coordenadas) => {
             if(!ret.includes(coordsIguales[1])){
                 ret.push(coordsIguales[1]);
             }
+        }
+    }
+    return ret;
+}
+
+const ordenarTrazaDron = (puntos) => {
+    let ret = [];
+    ret.push(puntos[0]);
+    ret.push(puntos[1]);
+    for (let i = 2; i < puntos.length - 1; i+=2){
+        if(ret[ret.length - 1].distanceTo(puntos[i]) < ret[ret.length - 1].distanceTo(puntos[i + 1])){
+            ret.push(puntos[i]);
+            ret.push(puntos[i+1]);
+        } else{
+            ret.push(puntos[i+1]);
+            ret.push(puntos[i]);
         }
     }
     return ret;
