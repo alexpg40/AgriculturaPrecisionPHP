@@ -44,14 +44,18 @@ const crearMapa = (parcela) => {
 
     //Consigo las lineas de arriba y de abajo del cuadrado
     let lineaArriba = [caja._latlngs[0][1], caja._latlngs[0][2]];
-    let lineaAbajo = [caja._latlngs[0][3], caja._latlngs[0][0]];
+    let lineaAbajo = [caja._latlngs[0][0], caja._latlngs[0][3]];
 
     //Divido esas lineas entre varios puntos por donde pasara el polyline
-    dividirRecta(mapa, lineaArriba);
-    dividirRecta(mapa, lineaAbajo);
+    dividirRecta(lineaArriba, 10);
+    dividirRecta(lineaAbajo, 10);
+
+    let puntoPolyline = lineaArriba.concat(...lineaAbajo);
+
+    puntoPolyline.sort((a, b) => a.lng - b.lng)
 
     //Polyline de la ruta en el cuadrado 
-    let polylinePath = ordenarPolypath(lineaArriba, lineaAbajo);
+    let polylinePath = ordenarTrazaDron(puntoPolyline);
     let polyline = L.polyline(polylinePath, {color: 'white'}).addTo(mapa);
 
     //Consigo los puntos de interseccion de la parcela con el polyline del cuadrado
@@ -71,7 +75,7 @@ const crearMapa = (parcela) => {
 
     coordenadasFinales.sort((a, b) => a.lng < b.lng)
 
-    let poligono = turf.transformScale(mapaParcela.toGeoJSON(), 0.95);
+    let poligono = turf.transformScale(mapaParcela.toGeoJSON(), 0.93);
 
     let coordenadasReducidas = poligono.geometry.coordinates[0].map((coordenada) => L.GeoJSON.coordsToLatLng(coordenada));
 
@@ -87,7 +91,7 @@ const crearMapa = (parcela) => {
 
     L.polyline(coordenadasIntereseccionConvertidas, {color: 'black'}).addTo(mapa);
 
-    let mapaReducido = L.polygon(coordenadasReducidas, { color: 'orange' }).addTo(mapa)
+    let mapaReducido = L.polygon(coordenadasReducidas, { color: 'orange' })
 
     //Dibujo el polyline de la parcela en el mapa
     L.polyline(coordenadasFinales, {color: 'black'})
@@ -101,13 +105,13 @@ const crearPuntoMedio = (mapa, latlng1, latlng2) => {
 }
 
 //Divido los puntos de una recta varias veces
-const dividirRecta = (mapa, puntos) => {
-    for (let j = 0; j < 5; j++) {
-        let puntosNuevos = [];
-        for (let i = 1; i < puntos.length; i++) {
-            puntosNuevos.push(crearPuntoMedio(mapa, puntos[i-1], puntos[i]));
-        }
-        puntos.push(...puntosNuevos);
+const dividirRecta = (puntos, radio=5) => {
+    let geod = GeographicLib.Geodesic.WGS84, r;
+    while(puntos[puntos.length - 2].distanceTo(puntos[puntos.length - 1]) >= radio){
+        console.log(puntos[puntos.length - 2].distanceTo(puntos[puntos.length - 1]))
+        r = geod.Direct(puntos[puntos.length - 2].lat, puntos[puntos.length - 2].lng, 90, radio);
+        let puntoNuevo = L.latLng(r.lat2, r.lon2);
+        puntos.push(puntoNuevo);
         puntos.sort((a, b) => a.lng - b.lng);
     }
 }
