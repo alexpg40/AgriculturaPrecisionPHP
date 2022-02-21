@@ -47,11 +47,11 @@ const crearMapa = (parcela) => {
     let lineaAbajo = [caja._latlngs[0][0], caja._latlngs[0][3]];
 
     //Divido esas lineas entre varios puntos por donde pasara el polyline
-    dividirRecta(lineaArriba, 10);
-    dividirRecta(lineaAbajo, 10);
+    dividirRecta(lineaArriba, 14);
+    dividirRecta(lineaAbajo, 14);
 
+    //Uno los puntos y los ordeno
     let puntoPolyline = lineaArriba.concat(...lineaAbajo);
-
     puntoPolyline.sort((a, b) => a.lng - b.lng)
 
     //Polyline de la ruta en el cuadrado 
@@ -68,33 +68,12 @@ const crearMapa = (parcela) => {
     let coordenadasFinales = coordenadasGeoJSON.map((coordenada) => L.GeoJSON.coordsToLatLng(coordenada));
 
     //Ordeno las coordenadas para dibujar el polyline de la parcela
-
     coordenadasFinales = quitarPuntosMaliciosos(coordenadasFinales);
-
-    coordenadasFinales = ordenarPolypathInterior(coordenadasFinales);
-
-    coordenadasFinales.sort((a, b) => a.lng < b.lng)
-
-    let poligono = turf.transformScale(mapaParcela.toGeoJSON(), 0.93);
-
-    let coordenadasReducidas = poligono.geometry.coordinates[0].map((coordenada) => L.GeoJSON.coordsToLatLng(coordenada));
-
-    let intersecciones = turf.lineIntersect(polyline.toGeoJSON(), poligono)
-
-    let coordenadasIntereseccion = intersecciones.features.map(({geometry}) => geometry.coordinates);
-
-    let coordenadasIntereseccionConvertidas = coordenadasIntereseccion.map((coordenada) => L.GeoJSON.coordsToLatLng(coordenada));
-
-    coordenadasIntereseccionConvertidas.sort((a, b)=> a - b);
-
-    coordenadasIntereseccionConvertidas = ordenarTrazaDron(coordenadasIntereseccionConvertidas);
-
-    L.polyline(coordenadasIntereseccionConvertidas, {color: 'black'}).addTo(mapa);
-
-    let mapaReducido = L.polygon(coordenadasReducidas, { color: 'orange' })
+    
+    coordenadasFinales = ordenarTrazaDron(coordenadasFinales);
 
     //Dibujo el polyline de la parcela en el mapa
-    L.polyline(coordenadasFinales, {color: 'black'})
+    L.polyline(coordenadasFinales, {color: 'black'}).addTo(mapa);
 }
 
 //Consigo el punto medio de una recta
@@ -108,7 +87,6 @@ const crearPuntoMedio = (mapa, latlng1, latlng2) => {
 const dividirRecta = (puntos, radio=5) => {
     let geod = GeographicLib.Geodesic.WGS84, r;
     while(puntos[puntos.length - 2].distanceTo(puntos[puntos.length - 1]) >= radio){
-        console.log(puntos[puntos.length - 2].distanceTo(puntos[puntos.length - 1]))
         r = geod.Direct(puntos[puntos.length - 2].lat, puntos[puntos.length - 2].lng, 90, radio);
         let puntoNuevo = L.latLng(r.lat2, r.lon2);
         puntos.push(puntoNuevo);
@@ -149,16 +127,23 @@ const ordenarPolypathInterior = (coordenadas) => {
 
 const quitarPuntosMaliciosos = (coordenadas) => {
     let ret = [];
-    ret.push(coordenadas[0]);
-    for (let i = 1; i < coordenadas.length -1; i+=2) {
+    for (let i = 0; i < coordenadas.length ; i++) {
         const coord = coordenadas[i];
         let coordsIguales = coordenadas.filter(({lng})=>lng === coord.lng);
-        if(coordsIguales.length >= 2) {
+        if(coordsIguales.length == 2) {
             if(!ret.includes(coordsIguales[0])){
                 ret.push(coordsIguales[0]);
             }
             if(!ret.includes(coordsIguales[1])){
                 ret.push(coordsIguales[1]);
+            }
+        } else if(coordsIguales.length > 2){
+            coordsIguales.sort((a,b) => a.lat - b.lat);
+            if(!ret.includes(coordsIguales[0])){
+                ret.push(coordsIguales[0])
+            }
+            if(!ret.includes(coordsIguales[coordsIguales.length - 1])){
+                ret.push(coordsIguales[coordsIguales.length - 1])
             }
         }
     }
